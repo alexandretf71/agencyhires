@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Volley — Funnel Strategy · AgencyHires Challenge 1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:  #F4F0E6;
+      --navy:   #151622;
+      --navy2:  #1E2035;
+      --coral:  #E8623D;
+      --teal:   #2D6E6A;
+      --muted:  #6B6B7B;
+      --border: rgba(26,26,42,0.10);
+      --font-serif: 'Fraunces', Georgia, serif;
+      --font-sans:  'Inter', system-ui, sans-serif;
+      --font-mono:  'JetBrains Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--navy);
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ── Nav ── */
+    nav {
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+    }
+    .logo span { color: var(--coral); }
+    .nav-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 32px 60px;
+      gap: 28px;
+    }
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--coral);
+      border: 1px solid rgba(232,98,61,0.3);
+      border-radius: 100px;
+      padding: 6px 18px;
+    }
+    .hero__badge::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--coral);
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(40px, 7vw, 80px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      max-width: 820px;
+    }
+    h1 em { color: var(--coral); font-style: italic; }
+    .hero__sub {
+      font-size: clamp(15px, 2vw, 18px);
+      color: rgba(255,255,255,0.5);
+      max-width: 540px;
+      line-height: 1.7;
+    }
+
+    /* ── Cards ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+      max-width: 960px;
+      padding: 0 32px;
+      margin: 0 auto;
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 28px;
+      text-decoration: none;
+      color: #fff;
+      transition: all 0.22s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(232,98,61,0.08), transparent);
+      opacity: 0;
+      transition: opacity 0.22s ease;
+    }
+    .card:hover { transform: translateY(-4px); border-color: rgba(232,98,61,0.35); box-shadow: 0 20px 60px rgba(0,0,0,0.35); }
+    .card:hover::before { opacity: 1; }
+    .card--deck { background: rgba(45,110,106,0.12); border-color: rgba(45,110,106,0.25); }
+    .card--deck:hover { border-color: rgba(45,110,106,0.55); }
+    .card--deck::before { background: linear-gradient(135deg, rgba(45,110,106,0.12), transparent); }
+
+    .card__num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--coral);
+    }
+    .card--deck .card__num { color: rgba(45,110,106,0.8); }
+
+    .card__icon { font-size: 36px; line-height: 1; }
+    .card__title {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .card__desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--coral);
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+      margin-top: 4px;
+    }
+    .card--deck .card__link { color: #3D9E99; }
+
+    /* ── Angle pills ── */
+    .ang-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .ang-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+    }
+    .ang-pill a {
+      color: rgba(232,98,61,0.7);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .ang-pill a:hover { color: var(--coral); }
+
+    /* ── Footer ── */
+    footer {
+      padding: 24px 48px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    footer p {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.04em;
+    }
+    footer a { color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--coral); }
+
+    @media (max-width: 720px) {
+      nav { padding: 16px 24px; }
+      .cards { grid-template-columns: 1fr; padding: 0 24px; }
+      .hero { padding: 60px 24px 40px; }
+      footer { padding: 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="logo">Volley <span>/</span> Funnel</a>
+    <span class="nav-tag">AgencyHires · Challenge 01</span>
+  </nav>
+
+  <div class="hero">
+    <span class="hero__badge">Live submission</span>
+    <h1>Build a funnel<br>for <em>Volley.</em></h1>
+    <p class="hero__sub">A landing page variant, 3 Meta ad angles, and a testing plan — grounded in real page data and built the way a performance marketer would actually approach it.</p>
+  </div>
+
+  <div class="cards">
+
+    <!-- LP variant -->
+    <a class="card" href="landing-page-variant/index.html">
+      <span class="card__num">Deliverable 01</span>
+      <div class="card__icon">🖥</div>
+      <h2 class="card__title">Landing page variant</h2>
+      <p class="card__desc">Actual coded build — pain-first hero, interactive checklist, price-anchor copy, animated weekly-loop diagram, and message-match tech.</p>
+      <div class="ang-pills">
+        <div class="ang-pill">
+          msg-match →
+          <a href="landing-page-variant/index.html?ang=dropout">?ang=dropout</a>
+          <a href="landing-page-variant/index.html?ang=pro">?ang=pro</a>
+          <a href="landing-page-variant/index.html?ang=compare">?ang=compare</a>
+        </div>
+      </div>
+      <span class="card__link">Open LP variant →</span>
+    </a>
+
+    <!-- Deck -->
+    <a class="card card--deck" href="deck/index.html">
+      <span class="card__num">Full strategy deck</span>
+      <div class="card__icon">📋</div>
+      <h2 class="card__title">Strategy deck</h2>
+      <p class="card__desc">Page audit · LP rationale · 3 Meta ad angles with full copy and creative direction · 1-page testing plan with sequencing, metrics, and kill criteria.</p>
+      <span class="card__link">Open deck →</span>
+    </a>
+
+    <!-- What's the brief -->
+    <div class="card" style="cursor:default;">
+      <span class="card__num">The brief</span>
+      <div class="card__icon">🎯</div>
+      <h2 class="card__title">The strategic call</h2>
+      <p class="card__desc">The current page hides price entirely and buries its strongest hook (app dropout survivors) two-thirds down. One focused test changes both — without rebuilding the whole page.</p>
+      <p style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.2);margin-top:8px;">$99/mo · AI practice + real tutor · weekly loop</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Built for AgencyHires Challenge 01 · Volley (getvolley.ai)</p>
+    <a href="https://github.com/alexandretf71/agencyhires" target="_blank" rel="noopener">github.com/alexandretf71/agencyhires ↗</a>
+  </footer>
+
+</body>
+</html>

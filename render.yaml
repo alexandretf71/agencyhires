@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: agencyhires-volley
+    runtime: static
+    staticPublishPath: .
+    buildCommand: ""
+    pullRequestPreviewsEnabled: false
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=3600
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
