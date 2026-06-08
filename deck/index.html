@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Volley — Funnel Strategy Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Tokens ── */
+    :root {
+      --cream:  #F4F0E6;
+      --cream2: #EDE8D8;
+      --navy:   #151622;
+      --navy2:  #1E2035;
+      --coral:  #E8623D;
+      --teal:   #2D6E6A;
+      --white:  #FFFFFF;
+      --border: rgba(26,26,42,0.10);
+      --muted:  #6B6B7B;
+      --font-serif: 'Fraunces', Georgia, serif;
+      --font-sans:  'Inter', system-ui, sans-serif;
+      --font-mono:  'JetBrains Mono', monospace;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); background: var(--cream); color: var(--navy); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* ── Print ── */
+    @media print {
+      .no-print { display: none !important; }
+      .page { page-break-after: always; }
+      body { background: white; }
+    }
+
+    /* ── Nav ── */
+    .deck-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(244,240,230,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .deck-nav__logo { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--navy); }
+    .deck-nav__logo span { color: var(--coral); }
+    .deck-nav__links { display: flex; gap: 28px; }
+    .deck-nav__links a { font-size: 13px; color: var(--muted); text-decoration: none; font-family: var(--font-mono); letter-spacing: 0.04em; transition: color 0.2s; }
+    .deck-nav__links a:hover { color: var(--coral); }
+
+    /* ── Pages / Sections ── */
+    .page { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+
+    /* ─ Cover ─ */
+    .cover {
+      background: var(--navy);
+      padding: 80px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+    }
+    .cover__copy { display: flex; flex-direction: column; gap: 24px; }
+    .cover__tag {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--coral);
+      border: 1px solid rgba(232,98,61,0.3); border-radius: 100px;
+      padding: 6px 16px; width: fit-content;
+    }
+    .cover__headline {
+      font-family: var(--font-serif); font-size: clamp(44px, 5vw, 68px);
+      font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; color: var(--white);
+    }
+    .cover__headline em { color: var(--coral); font-style: italic; }
+    .cover__sub { font-size: 18px; color: rgba(255,255,255,0.6); line-height: 1.65; }
+    .cover__meta {
+      display: flex; flex-direction: column; gap: 6px;
+      border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px;
+    }
+    .cover__meta-line { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.35); letter-spacing: 0.04em; }
+    .cover__meta-line strong { color: rgba(255,255,255,0.6); }
+    .cover__visual {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .brief-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px; padding: 24px;
+    }
+    .brief-card__label { font-family: var(--font-mono); font-size: 10px; color: var(--coral); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px; }
+    .brief-card__value { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.6; }
+    .brief-card__value strong { color: #fff; }
+
+    /* ─ Section dividers ─ */
+    .section-divider {
+      background: var(--coral);
+      padding: 60px 80px;
+      display: flex; align-items: center; gap: 24px;
+    }
+    .section-divider--navy { background: var(--navy2); }
+    .section-divider--teal { background: var(--teal); }
+    .divider__num {
+      font-family: var(--font-serif); font-size: 80px; font-weight: 700;
+      color: rgba(255,255,255,0.12); line-height: 1; flex-shrink: 0;
+    }
+    .divider__copy { display: flex; flex-direction: column; gap: 8px; }
+    .divider__label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+    .divider__title { font-family: var(--font-serif); font-size: clamp(32px, 4vw, 52px); font-weight: 700; color: var(--white); line-height: 1.1; }
+
+    /* ─ Content sections ─ */
+    .content-section { padding: 80px; background: var(--white); }
+    .content-section--cream { background: var(--cream); }
+    .content-section--cream2 { background: var(--cream2); }
+    .content-section--dark { background: var(--navy); }
+
+    /* ─ Typography ─ */
+    .mono-tag {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--coral); margin-bottom: 12px;
+    }
+    .mono-tag--light { color: rgba(232,98,61,0.7); }
+    h2.deck-h2 {
+      font-family: var(--font-serif); font-size: clamp(28px, 3vw, 44px);
+      font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    h2.deck-h2--white { color: var(--white); }
+    h3.deck-h3 { font-family: var(--font-serif); font-size: 22px; font-weight: 600; margin-bottom: 10px; }
+    p.deck-p { font-size: 16px; color: var(--muted); line-height: 1.7; }
+    p.deck-p--white { color: rgba(255,255,255,0.65); }
+
+    /* ─ Grid layouts ─ */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .content-max { max-width: 920px; }
+
+    /* ─ Analysis cards ─ */
+    .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+    .analysis-card {
+      border-radius: 16px; padding: 28px;
+      border: 1px solid var(--border); background: var(--cream);
+    }
+    .analysis-card--issue { border-color: rgba(232,98,61,0.3); background: rgba(232,98,61,0.05); }
+    .analysis-card--keep  { border-color: rgba(45,110,106,0.3); background: rgba(45,110,106,0.05); }
+    .analysis-card__type {
+      font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .analysis-card--issue .analysis-card__type { color: var(--coral); }
+    .analysis-card--keep  .analysis-card__type { color: var(--teal); }
+    .analysis-card h3 { font-family: var(--font-serif); font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+    .analysis-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* ─ Hypothesis box ─ */
+    .hypothesis {
+      background: var(--navy); border-radius: 20px; padding: 36px;
+      margin-top: 40px; display: flex; gap: 24px; align-items: flex-start;
+    }
+    .hypothesis__icon { font-size: 32px; flex-shrink: 0; }
+    .hypothesis__label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral); margin-bottom: 10px; }
+    .hypothesis__text { font-family: var(--font-serif); font-size: 20px; font-style: italic; color: rgba(255,255,255,0.9); line-height: 1.55; }
+
+    /* ─ Change list ─ */
+    .change-list { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+    .change-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 20px 24px; border-radius: 14px;
+      border: 1px solid var(--border); background: var(--cream);
+    }
+    .change-item__num {
+      font-family: var(--font-mono); font-size: 11px; color: var(--coral);
+      background: rgba(232,98,61,0.1); border-radius: 100px;
+      padding: 4px 10px; flex-shrink: 0; margin-top: 2px;
+    }
+    .change-item__title { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+    .change-item__desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* ─ Design features ─ */
+    .design-features {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 32px;
+    }
+    .design-feat {
+      background: var(--navy2); border-radius: 16px; padding: 24px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .design-feat__icon { font-size: 28px; margin-bottom: 10px; }
+    .design-feat h4 { font-family: var(--font-serif); font-size: 18px; color: var(--white); margin-bottom: 6px; }
+    .design-feat p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+    /* ─ Ad angle cards ─ */
+    .ad-card {
+      background: var(--white); border-radius: 20px; padding: 36px;
+      border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(26,26,42,0.06);
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .ad-card--dark { background: var(--navy); border-color: transparent; }
+    .ad-card--teal { background: var(--teal); border-color: transparent; }
+
+    .ad-card__header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .ad-card__num {
+      font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+      color: var(--coral); background: rgba(232,98,61,0.1); border-radius: 100px;
+      padding: 4px 12px;
+    }
+    .ad-card--dark .ad-card__num { background: rgba(232,98,61,0.2); }
+    .ad-card--teal .ad-card__num { background: rgba(255,255,255,0.15); color: #fff; }
+    .ad-card__format {
+      font-family: var(--font-mono); font-size: 10px; color: var(--muted);
+      border: 1px solid var(--border); border-radius: 100px; padding: 3px 10px;
+    }
+    .ad-card--dark .ad-card__format,
+    .ad-card--teal .ad-card__format { color: rgba(255,255,255,0.45); border-color: rgba(255,255,255,0.15); }
+
+    .ad-card__angle { font-family: var(--font-serif); font-size: 22px; font-weight: 600; line-height: 1.2; }
+    .ad-card--dark .ad-card__angle,
+    .ad-card--teal .ad-card__angle { color: var(--white); }
+
+    .ad-card__row { display: flex; flex-direction: column; gap: 6px; }
+    .ad-card__row-label {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--coral);
+    }
+    .ad-card--teal .ad-card__row-label { color: rgba(255,255,255,0.5); }
+    .ad-card__row-value { font-size: 14px; line-height: 1.65; }
+    .ad-card--dark .ad-card__row-value { color: rgba(255,255,255,0.75); }
+    .ad-card--teal .ad-card__row-value { color: rgba(255,255,255,0.85); }
+
+    .ad-copy-block {
+      background: rgba(26,26,42,0.04); border-left: 3px solid var(--coral);
+      padding: 16px 18px; border-radius: 0 10px 10px 0;
+    }
+    .ad-card--dark .ad-copy-block { background: rgba(255,255,255,0.05); }
+    .ad-card--teal .ad-copy-block { background: rgba(255,255,255,0.1); }
+    .ad-copy-hook { font-family: var(--font-serif); font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+    .ad-card--dark .ad-copy-hook,
+    .ad-card--teal .ad-copy-hook { color: var(--white); }
+    .ad-copy-body { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .ad-card--dark .ad-copy-body { color: rgba(255,255,255,0.6); }
+    .ad-card--teal .ad-copy-body { color: rgba(255,255,255,0.75); }
+
+    .ad-creative-block {
+      background: rgba(232,98,61,0.06); border-radius: 12px; padding: 14px 18px;
+    }
+    .ad-card--dark .ad-creative-block { background: rgba(255,255,255,0.05); }
+    .ad-card--teal .ad-creative-block { background: rgba(255,255,255,0.1); }
+    .ad-creative-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--coral); margin-bottom: 6px; }
+    .ad-card--teal .ad-creative-label { color: rgba(255,255,255,0.5); }
+    .ad-creative-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .ad-card--dark .ad-creative-text { color: rgba(255,255,255,0.6); }
+    .ad-card--teal .ad-creative-text { color: rgba(255,255,255,0.8); }
+
+    .url-param-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono); font-size: 11px; color: var(--teal);
+      background: rgba(45,110,106,0.1); border-radius: 100px; padding: 4px 12px;
+      border: 1px solid rgba(45,110,106,0.2);
+    }
+    .ad-card--dark .url-param-tag { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); border-color: transparent; }
+    .ad-card--teal .url-param-tag { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.75); border-color: transparent; }
+
+    /* ─ Testing plan ─ */
+    .test-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 40px; align-items: start; }
+    .phase-card {
+      border-radius: 16px; padding: 28px;
+      border: 1px solid var(--border);
+    }
+    .phase-card__phase {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--coral); margin-bottom: 12px;
+    }
+    .phase-card__title { font-family: var(--font-serif); font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+    .phase-card__metrics { display: flex; flex-direction: column; gap: 8px; }
+    .metric-row {
+      display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px;
+      border-radius: 10px; background: rgba(232,98,61,0.05);
+      border: 1px solid rgba(232,98,61,0.12);
+    }
+    .metric-row__label { font-family: var(--font-mono); font-size: 11px; color: var(--coral); font-weight: 500; flex-shrink: 0; padding-top: 1px; }
+    .metric-row__value { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    .sequencing {
+      display: flex; flex-direction: column; gap: 0; margin: 32px 0;
+    }
+    .seq-step {
+      display: flex; gap: 20px; align-items: flex-start;
+    }
+    .seq-step__line {
+      display: flex; flex-direction: column; align-items: center; flex-shrink: 0;
+    }
+    .seq-step__dot {
+      width: 32px; height: 32px; border-radius: 50%; background: var(--coral);
+      color: #fff; font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .seq-step__connector {
+      width: 2px; height: 32px; background: rgba(232,98,61,0.2); margin: 4px 0;
+    }
+    .seq-step:last-child .seq-step__connector { display: none; }
+    .seq-step__copy { padding: 4px 0 36px; }
+    .seq-step__title { font-weight: 600; font-size: 16px; margin-bottom: 6px; }
+    .seq-step__desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    .kill-list {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .kill-item {
+      display: flex; gap: 14px; align-items: flex-start; padding: 16px 20px;
+      border-radius: 12px; border: 1px solid var(--border);
+    }
+    .kill-item__order {
+      background: var(--coral); color: #fff; font-family: var(--font-mono);
+      font-size: 11px; font-weight: 500; border-radius: 100px; padding: 3px 10px;
+      flex-shrink: 0; margin-top: 2px; min-width: 60px; text-align: center;
+    }
+    .kill-item__title { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+    .kill-item__desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    .measurement-box {
+      background: var(--navy); border-radius: 16px; padding: 28px; margin-top: 32px;
+    }
+    .measurement-box h3 { font-family: var(--font-serif); font-size: 20px; color: var(--white); margin-bottom: 16px; }
+    .measurement-items { display: flex; flex-direction: column; gap: 12px; }
+    .measurement-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: rgba(255,255,255,0.05); border-radius: 10px; padding: 12px 16px;
+    }
+    .measurement-item__tag {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--coral); flex-shrink: 0;
+      background: rgba(232,98,61,0.15); border-radius: 100px; padding: 3px 10px;
+    }
+    .measurement-item__text { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+
+    /* ─ LP preview embed ─ */
+    .lp-preview {
+      background: var(--navy2); border-radius: 20px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      position: relative;
+    }
+    .lp-preview__bar {
+      background: rgba(255,255,255,0.05); padding: 12px 16px;
+      display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .browser-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .browser-dot--r { background: #FF5F57; }
+    .browser-dot--y { background: #FEBC2E; }
+    .browser-dot--g { background: #28C840; }
+    .lp-preview__url {
+      font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.35);
+      margin-left: 8px;
+    }
+    .lp-preview__frame {
+      height: 380px; background: var(--cream);
+      display: flex; flex-direction: column;
+    }
+    .mock-nav {
+      background: rgba(244,240,230,0.95); padding: 12px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid rgba(26,26,42,0.08);
+    }
+    .mock-nav-logo { font-family: var(--font-serif); font-size: 16px; font-weight: 700; color: var(--navy); }
+    .mock-btn {
+      background: var(--navy); color: #fff; padding: 6px 16px; border-radius: 100px;
+      font-size: 12px; font-weight: 600;
+    }
+    .mock-hero {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+      padding: 28px 20px; flex: 1; align-items: center;
+    }
+    .mock-headline { font-family: var(--font-serif); font-size: 22px; font-weight: 700; line-height: 1.15; margin-bottom: 10px; }
+    .mock-headline em { color: var(--coral); font-style: italic; }
+    .mock-sub { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 14px; }
+    .mock-cta { background: var(--coral); color: #fff; padding: 8px 18px; border-radius: 100px; font-size: 12px; font-weight: 600; display: inline-block; }
+    .mock-price-note { font-size: 10px; color: var(--muted); margin-top: 8px; font-family: var(--font-mono); }
+    .mock-phone {
+      background: var(--navy); border-radius: 20px; padding: 10px;
+      transform: rotate(2deg); box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+    .mock-phone-inner { background: #0E0F1A; border-radius: 14px; padding: 10px; height: 160px; display: flex; flex-direction: column; gap: 6px; }
+    .mock-bubble { border-radius: 10px; padding: 5px 10px; font-size: 10px; }
+    .mock-bubble--them { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.75); width: fit-content; }
+    .mock-bubble--me { background: var(--coral); color: #fff; width: fit-content; align-self: flex-end; }
+
+    /* ─ Closing slide ─ */
+    .closing {
+      background: var(--navy); display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 100px 80px; text-align: center; gap: 32px;
+    }
+    .closing__headline { font-family: var(--font-serif); font-size: clamp(36px, 5vw, 64px); font-weight: 700; color: var(--white); line-height: 1.1; }
+    .closing__headline em { color: var(--coral); font-style: italic; }
+    .closing__sub { font-size: 18px; color: rgba(255,255,255,0.55); max-width: 600px; line-height: 1.65; }
+    .closing__chips { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .chip { font-family: var(--font-mono); font-size: 12px; padding: 8px 18px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.5); }
+
+    /* ─ Utility ─ */
+    .mt-8  { margin-top: 8px; }
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+    .mt-32 { margin-top: 32px; }
+    .mt-40 { margin-top: 40px; }
+    .mb-8  { margin-bottom: 8px; }
+    .mb-16 { margin-bottom: 16px; }
+    .divider-line { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+    .tag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; }
+    .tag--coral { background: rgba(232,98,61,0.1); color: var(--coral); }
+    .tag--teal  { background: rgba(45,110,106,0.1); color: var(--teal); }
+    .tag--navy  { background: rgba(26,26,42,0.08); color: var(--navy); }
+    .stars { color: #F5A623; font-size: 14px; letter-spacing: 1px; }
+
+    /* ─ Responsive ─ */
+    @media (max-width: 900px) {
+      .cover { grid-template-columns: 1fr; padding: 60px 32px; }
+      .content-section { padding: 60px 32px; }
+      .two-col, .three-col, .analysis-grid, .test-grid, .design-features { grid-template-columns: 1fr; }
+      .section-divider { padding: 48px 32px; }
+      .deck-nav { padding: 12px 24px; }
+      .deck-nav__links { display: none; }
+      .mock-hero { grid-template-columns: 1fr; }
+      .mock-phone { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="deck-nav no-print">
+    <div class="deck-nav__logo">Volley <span>/ Funnel Strategy</span></div>
+    <div class="deck-nav__links">
+      <a href="#lp">01 Landing Page</a>
+      <a href="#ads">02 Ad Angles</a>
+      <a href="#testing">03 Testing Plan</a>
+    </div>
+  </nav>
+
+  <!-- ══ COVER ══ -->
+  <section class="cover page" id="cover">
+    <div class="cover__copy">
+      <span class="cover__tag">Challenge 1 — Volley Funnel</span>
+      <h1 class="cover__headline">
+        Build a funnel<br>for <em>Volley.</em>
+      </h1>
+      <p class="cover__sub">A landing page variant, 3 Meta ad angles, and a testing plan — built the way a performance marketer who can read data and make a call would actually approach it.</p>
+      <div class="cover__meta">
+        <p class="cover__meta-line">Account: <strong>Volley (getvolley.ai)</strong></p>
+        <p class="cover__meta-line">Price point: <strong>$99/month</strong></p>
+        <p class="cover__meta-line">Core offer: <strong>AI daily practice + real human tutor, weekly review</strong></p>
+        <p class="cover__meta-line">Deliverables: <strong>LP variant (coded) · 3 ad angles · 1-page test plan</strong></p>
+      </div>
+    </div>
+    <div class="cover__visual">
+      <div class="brief-card">
+        <p class="brief-card__label">The Brief</p>
+        <p class="brief-card__value">"Pretend I just handed you the account. What would you change, and how would you prove it works?" The answer isn't to change everything. It's to find the highest-leverage lever, form a clear hypothesis, and run a test you can actually read.</p>
+      </div>
+      <div class="brief-card">
+        <p class="brief-card__label">The Strategic Lens</p>
+        <p class="brief-card__value"><strong>The page has one major gap:</strong> at $99/mo — 7× Duolingo's price — it hides cost entirely and buries its strongest emotional hook (app dropout survivors) two-thirds down. One focused test can address both.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 01 DIVIDER ══ -->
+  <div class="section-divider page" id="lp">
+    <div class="divider__num">01</div>
+    <div class="divider__copy">
+      <p class="divider__label">Deliverable one</p>
+      <div class="divider__title">Landing page variant.</div>
+    </div>
+  </div>
+
+  <!-- 01 A: What I found -->
+  <section class="content-section content-section--cream page">
+    <div class="content-max">
+      <p class="mono-tag">Current page audit — getvolley.ai/lp3</p>
+      <h2 class="deck-h2">What's working. What's not.</h2>
+      <p class="deck-p">I reviewed the full page top-to-bottom before touching anything. The instinct to preserve what's good is as important as knowing what to change.</p>
+
+      <div class="analysis-grid">
+        <div class="analysis-card analysis-card--keep">
+          <p class="analysis-card__type">Preserve ✓</p>
+          <h3>Premium editorial aesthetic</h3>
+          <p>Cream/navy/coral palette, Fraunces display serif, generous whitespace — positions Volley above Duolingo/Babbel visually. Don't touch this.</p>
+        </div>
+        <div class="analysis-card analysis-card--keep">
+          <p class="analysis-card__type">Preserve ✓</p>
+          <h3>Strong "show, don't tell" mockups</h3>
+          <p>The in-app chat demos, tutor review message thread, and weekly loop diagram actually communicate the mechanism. Keep all of these — they're doing real work.</p>
+        </div>
+        <div class="analysis-card analysis-card--keep">
+          <p class="analysis-card__type">Preserve ✓</p>
+          <h3>Specific outcome testimonials</h3>
+          <p>"Ordered dinner in French after 3 months." "My tutor messaged me when I skipped Tuesday." These are good — real outcomes, real accountability proof. Leave them.</p>
+        </div>
+        <div class="analysis-card analysis-card--keep">
+          <p class="analysis-card__type">Preserve ✓</p>
+          <h3>FAQ pre-handles objections</h3>
+          <p>The Duolingo/Babbel comparison is addressed in FAQ. Good practice — don't remove it. We'll <em>add</em> one missing item: the price.</p>
+        </div>
+        <div class="analysis-card analysis-card--issue">
+          <p class="analysis-card__type">Issue ✗ — highest priority</p>
+          <h3>Price is completely invisible</h3>
+          <p>$99/mo appears nowhere on the page — not in hero, not in FAQ (there's no "how much does it cost?" item). Visitors go through a 2-minute placement test before ever seeing the number. At 7× the price of Duolingo, this gap causes funnel abandonment <em>and</em> post-purchase regret.</p>
+        </div>
+        <div class="analysis-card analysis-card--issue">
+          <p class="analysis-card__type">Issue ✗ — buried hook</p>
+          <h3>Strongest emotional angle is buried</h3>
+          <p>"App dropout survivors" is Volley's sharpest wedge — people who've tried Duolingo/Babbel/Pimsleur and quit — but it's a small card two-thirds down the page. The hero leads with a generic outcome statement instead of the pain that makes Volley's mechanism matter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 B: The hypothesis -->
+  <section class="content-section page">
+    <div class="content-max">
+      <p class="mono-tag">The change</p>
+      <h2 class="deck-h2">One lever. One test.</h2>
+      <p class="deck-p">I'm not rebuilding the page. Changing five things and learning nothing is a common mistake. The instinct here is to isolate the highest-leverage variable — entry framing + price transparency — and test that clearly.</p>
+
+      <div class="hypothesis">
+        <div class="hypothesis__icon">🔬</div>
+        <div>
+          <p class="hypothesis__label">Hypothesis</p>
+          <p class="hypothesis__text">"Leading with the 'you've tried apps and quit' pain — instead of a generic outcome headline — and being upfront about price relative to alternatives will increase qualified quiz-starts and quiz→purchase conversion, while reducing early cancellations from visitors who felt deceived by a price they didn't see coming."</p>
+        </div>
+      </div>
+
+      <div class="change-list mt-40">
+        <div class="change-item">
+          <span class="change-item__num">Change 1</span>
+          <div>
+            <p class="change-item__title">New hero — pain-first, not outcome-first</p>
+            <p class="change-item__desc">Swap "Learn a language with a private tutor and daily AI practice" for a headline that calls out the failure pattern directly: <em>"You've downloaded the apps. You still can't order a coffee in French."</em> The page earns the right to pitch the solution — it doesn't lead with it.</p>
+          </div>
+        </div>
+        <div class="change-item">
+          <span class="change-item__num">Change 2</span>
+          <div>
+            <p class="change-item__title">Elevate the dropout-survivor block above the fold</p>
+            <p class="change-item__desc">Pull the "App dropout survivors" persona into a new interactive "Sound familiar?" checklist block directly under the hero. Visitors self-identify by clicking symptoms — turns passive reading into active self-recognition before the pitch lands.</p>
+          </div>
+        </div>
+        <div class="change-item">
+          <span class="change-item__num">Change 3</span>
+          <div>
+            <p class="change-item__title">Add price-anchor microcopy near every CTA</p>
+            <p class="change-item__desc"><em>"Private tutors run $200+/month. Volley: $99/month — real tutor + daily AI practice. Cancel anytime."</em> Anchors against the real alternative, not against Duolingo. Makes the ask feel confident, not evasive. Also adds a "How much does Volley cost?" FAQ item.</p>
+          </div>
+        </div>
+        <div class="change-item">
+          <span class="change-item__num">Bonus</span>
+          <div>
+            <p class="change-item__title">Message-match via <code style="font-family:var(--font-mono);font-size:13px;background:rgba(26,26,42,0.07);padding:2px 8px;border-radius:4px">?ang=</code> URL parameter</p>
+            <p class="change-item__desc">A small vanilla-JS hook swaps the hero headline to mirror the ad angle that brought the click (<code style="font-family:var(--font-mono);font-size:13px;background:rgba(26,26,42,0.07);padding:2px 8px;border-radius:4px">?ang=dropout</code>, <code style="font-family:var(--font-mono);font-size:13px;background:rgba(26,26,42,0.07);padding:2px 8px;border-radius:4px">?ang=pro</code>, <code style="font-family:var(--font-mono);font-size:13px;background:rgba(26,26,42,0.07);padding:2px 8px;border-radius:4px">?ang=compare</code>). Ad-to-LP continuity is the single highest-leverage funnel technique available without a personalization platform — lower bounce, higher relevance.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 C: Design approach -->
+  <section class="content-section content-section--dark page">
+    <div class="content-max">
+      <p class="mono-tag mono-tag--light">Design direction</p>
+      <h2 class="deck-h2 deck-h2--white">Distinctive, not a clone.</h2>
+      <p class="deck-p deck-p--white">Matching Volley's palette is the floor, not the ceiling. These are the out-of-the-box design choices in the actual coded build — each has a reason beyond aesthetics.</p>
+
+      <div class="design-features">
+        <div class="design-feat">
+          <div class="design-feat__icon">📐</div>
+          <h4>Asymmetric editorial hero</h4>
+          <p>Oversized serif headline set off-axis against a floating, slightly-rotated phone mockup — breaks the centered-everything convention that makes every landing page look the same. Reinforces "premium" through editorial confidence, not just color.</p>
+        </div>
+        <div class="design-feat">
+          <div class="design-feat__icon">⚡</div>
+          <h4>Living weekly loop diagram</h4>
+          <p>Instead of three static cards, the three loop steps cycle through an animated active state continuously — so the core product mechanism feels like a living system, not a bullet list. The mechanism <em>is</em> the product; it should be felt, not read.</p>
+        </div>
+        <div class="design-feat">
+          <div class="design-feat__icon">☑️</div>
+          <h4>Interactive "Sound familiar?" checklist</h4>
+          <p>Visitors click through self-recognition statements that mirror their own language-learning failure. As they check boxes, the page responds with matching copy. Turns the dropout-survivor proof block from passive reading into a diagnostic moment — the most effective way to make someone feel <em>seen</em> before you pitch.</p>
+        </div>
+        <div class="design-feat">
+          <div class="design-feat__icon">𝟶𝟷</div>
+          <h4>Monospace data-flavor typography</h4>
+          <p>JetBrains Mono used for data-flavored copy (session counts, retention %, streaks, labels) throughout. A subtle recurring visual signal that reinforces "this product actually tracks your progress" without needing another callout box. The typeface does the work.</p>
+        </div>
+      </div>
+
+      <div class="mt-40">
+        <p class="mono-tag mono-tag--light">LP preview (simplified)</p>
+        <div class="lp-preview">
+          <div class="lp-preview__bar">
+            <div class="browser-dot browser-dot--r"></div>
+            <div class="browser-dot browser-dot--y"></div>
+            <div class="browser-dot browser-dot--g"></div>
+            <span class="lp-preview__url">getvolley.ai/lp3?ang=dropout — Variant B</span>
+          </div>
+          <div class="lp-preview__frame">
+            <div class="mock-nav">
+              <span class="mock-nav-logo">Volley</span>
+              <span class="mock-btn">Get my plan</span>
+            </div>
+            <div class="mock-hero">
+              <div>
+                <h2 class="mock-headline">You've downloaded the apps.<br><em>You still can't order a coffee.</em></h2>
+                <p class="mock-sub">That's not a you problem — it's an accountability problem. Volley pairs a real tutor with daily AI practice.</p>
+                <span class="mock-cta">Get my plan →</span>
+                <p class="mock-price-note">Private tutors: $200+/mo · Volley: $99/mo · cancel anytime</p>
+              </div>
+              <div class="mock-phone">
+                <div class="mock-phone-inner">
+                  <div class="mock-bubble mock-bubble--them">Hej! Vad vill du beställa?</div>
+                  <div class="mock-bubble mock-bubble--me">Jag skulle vilja ha en kaffe</div>
+                  <div class="mock-bubble mock-bubble--them">Bra! ✓ Good pronunciation</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="deck-p mt-16" style="font-size:13px;color:var(--muted);">
+          → Open the actual built LP:
+          <a href="../landing-page-variant/index.html" style="color:var(--coral);font-family:var(--font-mono);font-size:12px;">landing-page-variant/index.html</a>
+          &nbsp;|&nbsp;
+          <a href="../landing-page-variant/index.html?ang=pro" style="color:var(--muted);font-family:var(--font-mono);font-size:12px;">?ang=pro</a>
+          &nbsp;|&nbsp;
+          <a href="../landing-page-variant/index.html?ang=compare" style="color:var(--muted);font-family:var(--font-mono);font-size:12px;">?ang=compare</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ SECTION 02 DIVIDER ══ -->
+  <div class="section-divider section-divider--navy page" id="ads">
+    <div class="divider__num">02</div>
+    <div class="divider__copy">
+      <p class="divider__label">Deliverable two</p>
+      <div class="divider__title">3 Meta ad angles.</div>
+    </div>
+  </div>
+
+  <!-- 02 A: Framing -->
+  <section class="content-section content-section--cream page">
+    <div class="content-max">
+      <p class="mono-tag">2026 Meta context</p>
+      <h2 class="deck-h2">Creative is the targeting layer now.</h2>
+      <p class="deck-p">With Advantage+ campaigns, Meta's algorithm handles audience allocation better and faster than manual segmentation. The marketer's leverage has shifted almost entirely to <strong>creative diversity and testing velocity</strong>. These three angles aren't three final ads — they're three buckets, each one spawning 4-6 hook variants, fed broad into Advantage+. The algorithm finds who responds; we find what message resonates.</p>
+
+      <div class="three-col mt-40">
+        <div style="background:var(--cream2);border-radius:14px;padding:20px;border:1px solid var(--border);">
+          <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:8px;">Format</p>
+          <p style="font-weight:600;font-size:15px;margin-bottom:4px;">Vertical 9:16 short-form video first</p>
+          <p style="font-size:13px;color:var(--muted);">Reels/Stories dominate inventory and attention. Static is the fallback, not the lead format.</p>
+        </div>
+        <div style="background:var(--cream2);border-radius:14px;padding:20px;border:1px solid var(--border);">
+          <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:8px;">Production</p>
+          <p style="font-weight:600;font-size:15px;margin-bottom:4px;">AI-assisted creative at scale</p>
+          <p style="font-size:13px;color:var(--muted);">AI-avatar UGC tools (Arcads, Creatify) let you generate 6 hook variants per angle cheaply. Testing throughput > hand-polishing 3 ads.</p>
+        </div>
+        <div style="background:var(--cream2);border-radius:14px;padding:20px;border:1px solid var(--border);">
+          <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:8px;">Landing</p>
+          <p style="font-weight:600;font-size:15px;margin-bottom:4px;">Message-matched LP via <code style="font-family:var(--font-mono);font-size:12px;">?ang=</code></p>
+          <p style="font-size:13px;color:var(--muted);">Each ad links to the LP variant with its angle param — so the hero copy already mirrors the hook that earned the click.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 B: The 3 angles -->
+  <section class="content-section page">
+    <div style="max-width:1060px;">
+      <p class="mono-tag">The angles</p>
+      <h2 class="deck-h2">Three audiences. Three hooks. Three promises.</h2>
+
+      <div class="three-col mt-40">
+
+        <!-- Angle 1 -->
+        <div class="ad-card ad-card--dark">
+          <div class="ad-card__header">
+            <span class="ad-card__num">Angle 01</span>
+            <span class="ad-card__format">UGC / AI avatar · 9:16</span>
+          </div>
+          <h3 class="ad-card__angle">App Dropout Survivors</h3>
+
+          <div class="ad-card__row">
+            <p class="ad-card__row-label">Audience</p>
+            <p class="ad-card__row-value">Broad/cold via Advantage+. Anyone who's ever downloaded a language app — the algorithm finds them. No manual audience segmentation needed.</p>
+          </div>
+
+          <div class="ad-copy-block">
+            <p class="ad-copy-hook">"Duolingo streak: 247 days. Can you hold a conversation in Spanish? …Yeah, that's the problem."</p>
+            <p class="ad-copy-body">Apps are incredible at habit-building. They're terrible at noticing when you're coasting. Volley gives you a real tutor who checks your work every week — and daily AI practice so you never fall behind between sessions. $99/month. Cancel anytime.</p>
+          </div>
+
+          <div class="ad-card__row">
+            <p class="ad-card__row-label">Promise</p>
+            <p class="ad-card__row-value">This time, you'll actually speak — because a real human notices when you skip and adjusts the plan.</p>
+          </div>
+
+          <div class="ad-creative-block">
+            <p class="ad-creative-label">Creative direction</p>
+            <p class="ad-creative-text">AI avatar or UGC talking-head, confessional tone — "calling yourself out" energy. Captions do the heavy lifting (sound-off viewing). Bold text overlay in first 2 seconds. Native, scrappy — NOT polished brand video. Hook variant ideas: screenshot of Duolingo streak juxtaposed with "still can't order coffee" text overlay.</p>
+          </div>
+
+          <span class="url-param-tag">LP: ?ang=dropout</span>
+        </div>
+
+        <!-- Angle 2 -->
+        <div class="ad-card">
+          <div class="ad-card__header">
+            <span class="ad-card__num">Angle 02</span>
+            <span class="ad-card__format">Product demo · 9:16</span>
+          </div>
+          <h3 class="ad-card__angle">Busy Professional / 15 Minutes</h3>
+
+          <div class="ad-card__row">
+            <p class="ad-card__row-label">Audience</p>
+            <p class="ad-card__row-value">Broad cold prospecting. Advantage+ naturally finds time-scarce, goal-oriented people — let it. No manual slicing by job title or income.</p>
+          </div>
+
+          <div class="ad-copy-block">
+            <p class="ad-copy-hook">"You don't need 2 hours. You need 15 minutes and someone making sure they count."</p>
+            <p class="ad-copy-body">Volley is built for commutes, lunch breaks, and dead time. Daily AI practice that fits your schedule. A real tutor who reviews your week every Sunday and tells you exactly what to work on next — so you're never guessing. Real progress. Real tutor. $99/month.</p>
+          </div>
+
+          <div class="ad-card__row">
+            <p class="ad-card__row-label">Promise</p>
+            <p class="ad-card__row-value">Visible, weekly progress — without overhauling your schedule or faking 2-hour study sessions.</p>
+          </div>
+
+          <div class="ad-creative-block">
+            <p class="ad-creative-label">Creative direction</p>
+            <p class="ad-creative-text">Clean, premium short-form product walkthrough — matches Volley's own aesthetic (cream/navy/coral). Screen-recording of the app weekly loop, overlaid with calm voiceover. Feels like a high-trust ad for a $99 product, not a cheap app install. Contrast: calm visuals vs. frantic lifestyle shots. Variants: split-screen "on commute / before bed / in 15 mins."</p>
+          </div>
+
+          <span class="url-param-tag">LP: ?ang=pro</span>
+        </div>
+
+        <!-- Angle 3 -->
+        <div class="ad-card ad-card--teal">
+          <div class="ad-card__header">
+            <span class="ad-card__num">Angle 03</span>
+            <span class="ad-card__format">Comparison · static + video</span>
+          </div>
+          <h3 class="ad-card__angle">Not Another App</h3>
+
+          <div class="ad-card__row">
+            <p class="ad-card__row-label">Audience</p>
+            <p class="ad-card__row-value">Warm retargeting of page visitors + competitive conquesting of people actively comparing language apps. Also works cold as a differentiator for anyone evaluating options.</p>
+          </div>
+
+          <div class="ad-copy-block">
+            <p class="ad-copy-hook">"Your AI conversation partner: 'Great job!' Your actual tutor: 'You've been avoiding past tense for 2 weeks. Here's the fix.'"</p>
+            <p class="ad-copy-body">AI builds the habit. A real language tutor makes it actually work. Volley is both — daily practice in the app, plus a human who reviews your data every week and rebuilds your plan. That's what $13/month apps can't do. $99/month. Cancel anytime.</p>
+          </div>
+
+          <div class="ad-card__row">
+            <p class="ad-card__row-label">Promise</p>
+            <p class="ad-card__row-value">The human layer is worth the premium — because an algorithm can't tell you what you're actually doing wrong.</p>
+          </div>
+
+          <div class="ad-creative-block">
+            <p class="ad-creative-label">Creative direction</p>
+            <p class="ad-creative-text">Split-screen: AI chatbot bubble response (generic, cheerful) vs. tutor message thread (specific, data-driven, actionable). Reuses the "your tutor reviews it" UI already on the live site — fast to produce, visually self-explanatory. Works equally as static (carousel) and short-form video (animate the split). The contrast IS the ad.</p>
+          </div>
+
+          <span class="url-param-tag">LP: ?ang=compare</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ SECTION 03 DIVIDER ══ -->
+  <div class="section-divider section-divider--teal page" id="testing">
+    <div class="divider__num">03</div>
+    <div class="divider__copy">
+      <p class="divider__label">Deliverable three</p>
+      <div class="divider__title">1-page testing plan.</div>
+    </div>
+  </div>
+
+  <!-- 03 A: Sequencing -->
+  <section class="content-section content-section--cream page">
+    <div class="content-max">
+      <p class="mono-tag">Test structure</p>
+      <h2 class="deck-h2">Sequence, don't parallelize confounded tests.</h2>
+      <p class="deck-p">Running all three tests simultaneously is tempting — but a new LP tested against mismatched traffic just produces noise. The sequence below isolates each variable so the results are actually readable. The order isn't arbitrary: it's ranked by cost-to-change and confidence-to-signal ratio.</p>
+
+      <div class="sequencing mt-32">
+        <div class="seq-step">
+          <div class="seq-step__line">
+            <div class="seq-step__dot">1</div>
+            <div class="seq-step__connector"></div>
+          </div>
+          <div class="seq-step__copy">
+            <p class="seq-step__title">Hook validation — ad angles vs. existing LP</p>
+            <p class="seq-step__desc">Feed all three angle buckets (4-6 creative variants each) into a broad Advantage+ campaign pointing to the <em>current</em> LP. This is the cheapest, fastest signal you can get: which hook earns a click? We're not testing the LP yet — we're finding which angle the market cares about. <span style="font-family:var(--font-mono);font-size:12px;color:var(--coral);">Signal: CTR / thumb-stop rate / hook-rate (video) / CPC</span></p>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step__line">
+            <div class="seq-step__dot">2</div>
+            <div class="seq-step__connector"></div>
+          </div>
+          <div class="seq-step__copy">
+            <p class="seq-step__title">LP variant test — winning hook vs. control page</p>
+            <p class="seq-step__desc">Once a winning angle emerges, split that campaign's traffic between the <em>existing LP</em> and the <em>variant</em> (with message-matched headline via <code style="font-family:var(--font-mono);font-size:12px;background:rgba(26,26,42,0.07);padding:1px 6px;border-radius:4px;">?ang=</code>). Now the LP test is running against qualified, relevant traffic — not a mixed bag that obscures the signal. <span style="font-family:var(--font-mono);font-size:12px;color:var(--coral);">Signal: quiz-start rate, quiz completion rate, quiz→purchase rate, CAC</span></p>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step__line">
+            <div class="seq-step__dot">3</div>
+            <div class="seq-step__connector"></div>
+          </div>
+          <div class="seq-step__copy">
+            <p class="seq-step__title">Funnel mechanics — placement test flow, pricing reveal</p>
+            <p class="seq-step__desc">Only after creative and LP framing have a genuine read do we touch the placement-test flow or pricing-reveal timing. These have the highest cost-to-change and highest trust-risk — change them too early and you've burned budget on noise. <span style="font-family:var(--font-mono);font-size:12px;color:var(--coral);">Signal: test→purchase rate, refund/cancel rate in first 7 days</span></p>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step__line">
+            <div class="seq-step__dot">4</div>
+            <div class="seq-step__connector"></div>
+          </div>
+          <div class="seq-step__copy">
+            <p class="seq-step__title">Scale — optimize winning stack, hold a 10% holdout</p>
+            <p class="seq-step__desc">Once the creative + LP + funnel stack has a winning configuration with statistical confidence, scale — but maintain a holdout group (10% of matched audience sees no ads) to validate true incrementality before fully committing budget. <span style="font-family:var(--font-mono);font-size:12px;color:var(--coral);">Signal: incremental purchases vs. control (geo-lift or holdout), Day-30 retention rate</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 B: Metrics + measurement -->
+  <section class="content-section page">
+    <div class="content-max">
+      <p class="mono-tag">Metrics & measurement</p>
+      <h2 class="deck-h2">The metrics that actually matter — and why.</h2>
+
+      <div class="test-grid">
+        <div>
+          <div class="phase-card mt-8">
+            <p class="phase-card__phase">Phase 1 — Hook test</p>
+            <h3 class="phase-card__title">Top-of-funnel signals</h3>
+            <div class="phase-card__metrics">
+              <div class="metric-row">
+                <span class="metric-row__label">CTR</span>
+                <span class="metric-row__value">Directional read on angle resonance. Normalize by placement.</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-row__label">Thumb-stop</span>
+                <span class="metric-row__value">For video: what % watched past 3 seconds. Hook quality, not audience quality.</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-row__label">CPC</span>
+                <span class="metric-row__value">Cost per click. Use as a relative signal between angles, not an absolute target.</span>
+              </div>
+            </div>
+          </div>
+          <div class="phase-card mt-16">
+            <p class="phase-card__phase">Phase 2 — LP test</p>
+            <h3 class="phase-card__title">Funnel conversion signals</h3>
+            <div class="phase-card__metrics">
+              <div class="metric-row">
+                <span class="metric-row__label">Quiz-start %</span>
+                <span class="metric-row__value">Click → placement test started. Primary LP conversion metric.</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-row__label">Quiz complete %</span>
+                <span class="metric-row__value">Measures drop-off inside the funnel — often a UX issue, not a messaging issue.</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-row__label">Quiz → purchase</span>
+                <span class="metric-row__value">The business metric. CAC = ad spend ÷ purchases (CAPI-modeled).</span>
+              </div>
+            </div>
+          </div>
+          <div class="phase-card mt-16">
+            <p class="phase-card__phase">Phase 3–4 — Retention</p>
+            <h3 class="phase-card__title">Downstream signals (the ones most people skip)</h3>
+            <div class="phase-card__metrics">
+              <div class="metric-row">
+                <span class="metric-row__label">Day-7 cancel</span>
+                <span class="metric-row__value">A variant that spikes early cancellations isn't a win — it's a chargeback problem.</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-row__label">Day-30 LTV</span>
+                <span class="metric-row__value">The subscription business's real signal. A "low CAC" win that craters LTV is a loss.</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-row__label">Incrementality</span>
+                <span class="metric-row__value">Holdout/geo-lift confirms real lift vs. platform-attributed fiction.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="measurement-box">
+            <h3>Measurement stack — the honest version.</h3>
+            <p style="font-size:14px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:16px;">Meta's in-platform numbers are increasingly unreliable post-tracking deprecation. Here's what you need alongside them.</p>
+            <div class="measurement-items">
+              <div class="measurement-item">
+                <span class="measurement-item__tag">Must-have</span>
+                <span class="measurement-item__text"><strong style="color:#fff;">Conversions API (CAPI)</strong> — server-side event tracking. Reduces reliance on browser-side pixels. Required for accurate modeled conversion reporting in 2026.</span>
+              </div>
+              <div class="measurement-item">
+                <span class="measurement-item__tag">Must-have</span>
+                <span class="measurement-item__text"><strong style="color:#fff;">Holdout group (10%)</strong> — hold a percentage of matched audience out of all ads. Measures true incremental lift vs. organic behavior before you scale.</span>
+              </div>
+              <div class="measurement-item">
+                <span class="measurement-item__tag">Confirm</span>
+                <span class="measurement-item__text"><strong style="color:#fff;">Platform attribution ≠ truth.</strong> A platform-reported win that doesn't show in the holdout lift isn't a win — it's measurement noise. Validate both before reallocating budget.</span>
+              </div>
+              <div class="measurement-item">
+                <span class="measurement-item__tag">Sample size</span>
+                <span class="measurement-item__text"><strong style="color:#fff;">Don't peek.</strong> At $99/mo, you need ~50-100 purchase events per variant for meaningful signal. Plan for 2-3 weeks per phase minimum. Peaking kills the test.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 C: Kill criteria -->
+  <section class="content-section content-section--cream2 page">
+    <div class="content-max">
+      <p class="mono-tag">If numbers come in soft</p>
+      <h2 class="deck-h2">What to kill first — and in what order.</h2>
+      <p class="deck-p">The order matters as much as the decision. Kill in ascending order of cost-to-change. Killing the most expensive lever first before proving the cheap ones failed is how you waste budget and confuse yourself.</p>
+
+      <div class="kill-list mt-32">
+        <div class="kill-item">
+          <span class="kill-item__order">Kill 1st</span>
+          <div>
+            <p class="kill-item__title">The creative / hook batch</p>
+            <p class="kill-item__desc">Cheapest and fastest to replace — especially with AI-assisted production (new hooks in hours, not weeks). If nothing earns a thumb-stop or click, nothing downstream matters. Kill the angle or replace the hook variants before changing anything else. Do not touch the LP or funnel.</p>
+          </div>
+        </div>
+        <div class="kill-item">
+          <span class="kill-item__order">Kill 2nd</span>
+          <div>
+            <p class="kill-item__title">The LP hero framing / message-match mapping</p>
+            <p class="kill-item__desc">If hooks are getting clicks but the quiz-start rate is soft, the LP framing is the next lever. Iterate the pain-point headline, test a different emotional entry, or adjust the message-match mapping. This is medium cost — a few hours of copywriting and dev time.</p>
+          </div>
+        </div>
+        <div class="kill-item">
+          <span class="kill-item__order">Kill 3rd</span>
+          <div>
+            <p class="kill-item__title">The placement-test flow or pricing-reveal timing</p>
+            <p class="kill-item__desc">If hooks and LP are solid but quiz→purchase is weak, look at the funnel itself — length of placement test, where price is revealed, friction points inside the quiz. Higher cost to change, higher trust-risk. Do not touch this before phases 1 and 2 have been genuinely tested.</p>
+          </div>
+        </div>
+        <div class="kill-item">
+          <span class="kill-item__order">Kill last</span>
+          <div>
+            <p class="kill-item__title">The price or packaging</p>
+            <p class="kill-item__desc">The most expensive, highest-risk lever. Only revisit pricing if all other levers have had a real shot and the holdout/incrementality test confirms the business signal is actually weak — not just a tracking artifact. A lot of "pricing problems" are actually hook or LP framing problems wearing a price-point mask.</p>
+          </div>
+        </div>
+        <div class="kill-item" style="border-color:rgba(255,165,0,0.3);background:rgba(255,165,0,0.05);">
+          <span class="kill-item__order" style="background:orange;">Watch out</span>
+          <div>
+            <p class="kill-item__title">False-positive wins — sanity-check everything against Day-30 retention</p>
+            <p class="kill-item__desc">A variant that lowers CAC but spikes Day-7 cancellations is not a win — it's a chargeback problem and a brand problem. Always validate apparent "wins" against downstream retention before scaling spend or calling the test done.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CLOSING ══ -->
+  <section class="closing page">
+    <h2 class="closing__headline">The instinct isn't<br>to change <em>everything.</em></h2>
+    <p class="closing__sub">It's to find the one lever that's most likely wrong, form a hypothesis you can actually test, and read the data without letting the platform tell you what to believe.</p>
+    <div class="closing__chips">
+      <span class="chip">Landing page variant · coded</span>
+      <span class="chip">3 Meta ad angles · with copy</span>
+      <span class="chip">1-page testing plan</span>
+      <span class="chip">Message-match LP tech</span>
+      <span class="chip">Advantage+ framing</span>
+      <span class="chip">Incrementality testing</span>
+    </div>
+  </section>
+
+</body>
+</html>

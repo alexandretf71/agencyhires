@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Volley — AI Language Tutor (Variant B)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav class="nav">
+    <a href="#" class="logo" aria-label="Volley home">
+      <svg width="110" height="34" viewBox="0 0 110 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="17" cy="17" r="16" fill="#1A1A2E" />
+        <text x="17" y="22" text-anchor="middle" fill="#fff" font-family="Inter,sans-serif" font-size="13" font-weight="700">V</text>
+        <text x="40" y="23" fill="#1A1A2E" font-family="Fraunces,serif" font-size="22" font-weight="700" letter-spacing="-0.5">olley</text>
+      </svg>
+    </a>
+    <a href="https://getvolley.ai/lp3" class="btn btn--nav" target="_blank" rel="noopener">Get my plan</a>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="hero__copy">
+      <p class="overline" id="hero-overline">The language app problem — solved.</p>
+      <h1 class="headline" id="hero-headline">
+        You've downloaded<br>the apps.<br>
+        <em>You still can't order<br>a coffee in French.</em>
+      </h1>
+      <p class="subhead" id="hero-subhead">
+        That's not a you problem — it's an accountability problem. Volley pairs a real language tutor with daily AI practice, so someone who knows your weak spots always has a plan for next week.
+      </p>
+
+      <div class="cta-group">
+        <a href="https://getvolley.ai/lp3" class="btn btn--primary" target="_blank" rel="noopener">
+          Get my plan <span class="btn__arrow">→</span>
+        </a>
+        <p class="cta-micro">2-minute placement test · matched with a real tutor</p>
+      </div>
+
+      <div class="price-anchor">
+        <span class="price-anchor__badge">Pricing</span>
+        Private tutors: $200+/month &nbsp;·&nbsp; Volley: <strong>$99/month</strong>, cancel anytime.
+      </div>
+
+      <div class="social-proof">
+        <div class="social-proof__avatars" aria-hidden="true">
+          <div class="avatar" style="background:#C8A882"></div>
+          <div class="avatar" style="background:#A87D6B"></div>
+          <div class="avatar" style="background:#7E9BA4"></div>
+          <div class="avatar" style="background:#8E7BAC"></div>
+        </div>
+        <div>
+          <div class="stars" aria-label="5 stars">★★★★★</div>
+          <p class="social-proof__label">Loved by 1,000+ learners</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__visual" aria-hidden="true">
+      <div class="phone-mockup">
+        <div class="phone-mockup__screen">
+          <div class="phone-bar">
+            <span class="phone-dot"></span>
+            <span class="phone-time">Live</span>
+          </div>
+          <div class="chat">
+            <div class="chat__bubble chat__bubble--them">
+              Hej! Vad vill du beställa idag?
+            </div>
+            <div class="chat__bubble chat__bubble--me">
+              Jag skulle vilja ha en kaffe, tack
+            </div>
+            <div class="chat__bubble chat__bubble--them">
+              Bra! Vill du ha mjölk också?
+            </div>
+            <div class="chat__feedback">
+              <span class="feedback-tag feedback-tag--good">✓ Good</span>
+              <span class="feedback-tag">Again</span>
+              <span class="feedback-tag">Easy</span>
+            </div>
+          </div>
+          <div class="tutor-note">
+            <div class="tutor-avatar"></div>
+            <div>
+              <p class="tutor-note__label">Your tutor · Week review</p>
+              <p class="tutor-note__text">Your restaurant vocab jumped 87%. I set up 2 targeted conversations for next week.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-float-badge">
+        <span class="badge-mono">streak: 14 days</span>
+        <span class="badge-score">vocab retention: <strong>87%</strong></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SOUND FAMILIAR (interactive checklist) ─── -->
+  <section class="familiar">
+    <div class="container">
+      <p class="section-label">Be honest with yourself.</p>
+      <h2 class="section-headline">Sound familiar?</h2>
+      <p class="section-sub">Click every one that's true.</p>
+
+      <div class="checklist" id="checklist">
+        <label class="checklist__item">
+          <input type="checkbox" class="checklist__input" />
+          <span class="checklist__box"></span>
+          <span class="checklist__text">Downloaded Duolingo. Hit a 247-day streak. Still freeze when someone speaks at normal speed.</span>
+        </label>
+        <label class="checklist__item">
+          <input type="checkbox" class="checklist__input" />
+          <span class="checklist__box"></span>
+          <span class="checklist__text">Bought the course. Finished three lessons. It's been six months. The tab is still open.</span>
+        </label>
+        <label class="checklist__item">
+          <input type="checkbox" class="checklist__input" />
+          <span class="checklist__box"></span>
+          <span class="checklist__text">Can read a menu. Panic the moment the waiter asks a follow-up question.</span>
+        </label>
+        <label class="checklist__item">
+          <input type="checkbox" class="checklist__input" />
+          <span class="checklist__box"></span>
+          <span class="checklist__text">Know you'd improve fast with the right person watching your work — just haven't found them.</span>
+        </label>
+      </div>
+
+      <div class="checklist-response" id="checklist-response" aria-live="polite">
+        <p class="checklist-response__text" id="response-text">Check one to get started.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 3 REASONS ─── -->
+  <section class="reasons">
+    <div class="container">
+      <p class="section-label light">3 reasons you'll actually get conversational</p>
+      <div class="reasons__grid">
+        <div class="reason-card">
+          <span class="reason-num">01</span>
+          <h3 class="reason-title">AI tutor, anytime</h3>
+          <p class="reason-body">Open the app, start talking. It corrects your grammar and pronunciation in real time — no scheduling, no waiting.</p>
+        </div>
+        <div class="reason-card reason-card--featured">
+          <span class="reason-num">02</span>
+          <h3 class="reason-title">The polyglot method</h3>
+          <p class="reason-body">Hear a phrase, say it back, review it later. Each session builds on the last. Your mistakes become tomorrow's flashcards.</p>
+        </div>
+        <div class="reason-card">
+          <span class="reason-num">03</span>
+          <h3 class="reason-title">A real language tutor</h3>
+          <p class="reason-body">Sees exactly what you practiced this week, spots where you're stuck, and adjusts your plan — so you progress as fast as possible.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WEEKLY LOOP (animated diagram) ─── -->
+  <section class="loop">
+    <div class="container">
+      <p class="section-label">How it works</p>
+      <h2 class="section-headline section-headline--light">The weekly loop.</h2>
+      <p class="section-sub section-sub--light">Three steps. Every week. It compounds.</p>
+
+      <div class="loop-diagram">
+        <!-- Animated connector track -->
+        <div class="loop-track">
+          <div class="loop-track__fill"></div>
+        </div>
+
+        <div class="loop-step loop-step--1" data-step="1">
+          <div class="loop-icon">🎧</div>
+          <div class="loop-step__label">Step 1</div>
+          <h3 class="loop-step__title">Practice in the app</h3>
+          <p class="loop-step__body">15-min audio lesson on your commute. AI conversation at lunch. Flashcards before bed.</p>
+        </div>
+        <div class="loop-connector loop-connector--a"></div>
+
+        <div class="loop-step loop-step--2" data-step="2">
+          <div class="loop-icon">✦</div>
+          <div class="loop-step__label">Step 2</div>
+          <h3 class="loop-step__title">AI tracks everything</h3>
+          <p class="loop-step__body">Every word, every mistake, every card — logged and analyzed automatically. No journaling required.</p>
+        </div>
+        <div class="loop-connector loop-connector--b"></div>
+
+        <div class="loop-step loop-step--3" data-step="3">
+          <div class="loop-icon">💬</div>
+          <div class="loop-step__label">Step 3</div>
+          <h3 class="loop-step__title">Your tutor reviews it</h3>
+          <p class="loop-step__body">Once a week, your tutor looks at what you did, spots what's working, and adjusts your plan.</p>
+        </div>
+      </div>
+
+      <div class="loop-callouts">
+        <div class="callout">
+          <span class="callout-icon">🚫</span>
+          <div>
+            <p class="callout-title">You don't need more content.</p>
+            <p class="callout-body">You need someone making sure you show up 5 days a week and practice the right things.</p>
+          </div>
+        </div>
+        <div class="callout">
+          <span class="callout-icon">🗺</span>
+          <div>
+            <p class="callout-title">No guessing what to do next.</p>
+            <p class="callout-body">Your tutor sees your retention rates, session counts, and weak spots — then picks exactly what to work on.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WHAT YOU GET ─── -->
+  <section class="get">
+    <div class="container">
+      <h2 class="section-headline section-headline--center">Here's what you get every month.</h2>
+      <div class="get__grid">
+        <div class="get-card get-card--dark">
+          <p class="get-card__eyebrow">🎤 AI tutor</p>
+          <h3 class="get-card__title">On-demand conversation practice</h3>
+          <p class="get-card__body">Order coffee, ask for directions, debate politics. The AI meets you at your level, corrects you as you go.</p>
+          <div class="get-card__chat-demo">
+            <div class="mini-bubble mini-bubble--them">Vad vill du beställa?</div>
+            <div class="mini-bubble mini-bubble--me">Jag skulle vilja ha...</div>
+            <div class="mini-bubble mini-bubble--them">Bra! Du har en kaffe, tack</div>
+          </div>
+        </div>
+        <div class="get-card">
+          <p class="get-card__eyebrow">🎧 The app</p>
+          <h3 class="get-card__title">The full Volley app</h3>
+          <p class="get-card__body">Audio lessons you can do on a walk. Voice chat to practice speaking. Flashcards generated from your own mistakes.</p>
+          <div class="get-card__features">
+            <div class="feature-pill">🎧 Listen · AI audio lessons</div>
+            <div class="feature-pill">🎙 Speak · voice conversations</div>
+            <div class="feature-pill">✦ Remember · smart flashcards</div>
+          </div>
+        </div>
+        <div class="get-card get-card--teal">
+          <p class="get-card__eyebrow">👩‍🏫 A real tutor</p>
+          <h3 class="get-card__title">Reviews your week · adjusts your plan</h3>
+          <p class="get-card__body">Your tutor sees what you practiced, where you got stuck, and rebuilds next week's focus so you keep moving forward.</p>
+          <div class="get-card__tutor-preview">
+            <div class="tp-msg">You did 4 sessions this week. Restaurant vocab: 87%. 🎉</div>
+            <div class="tp-msg tp-msg--you">I still freeze on follow-up questions though.</div>
+            <div class="tp-msg">Normal at this stage. I've set up 2 targeted conversations for next week.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── YOUR TUTOR ─── -->
+  <section class="tutor-section">
+    <div class="container tutor-section__inner">
+      <div class="tutor-section__image">
+        <div class="tutor-img-circle"></div>
+      </div>
+      <div class="tutor-section__copy">
+        <p class="section-label">Your tutor</p>
+        <h2 class="section-headline">A real language tutor who sees your progress and adjusts your plan every week.</h2>
+        <p class="tutor-copy">Not a chatbot. Not an automated email. A <em>real language tutor</em> who opens your practice data every week — how many sessions you did, which words you're retaining, where you're stuck — and works with you on your blindspots.</p>
+        <ul class="tutor-checks">
+          <li>Reviews your sessions weekly</li>
+          <li>Spots your weak points</li>
+          <li>Sets your next week's focus</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WHO IT'S FOR ─── -->
+  <section class="for-section">
+    <div class="container">
+      <h2 class="section-headline section-headline--center">Built for people who are serious this time.</h2>
+      <div class="for-grid">
+        <div class="for-card">
+          <div class="for-avatar for-avatar--a"></div>
+          <p class="for-card__name">Sarah K.</p>
+          <h3 class="for-card__type">Busy professionals</h3>
+          <p class="for-card__body">15 minutes a day, a tutor who plans around your schedule. No 2-hour study blocks required.</p>
+        </div>
+        <div class="for-card">
+          <div class="for-avatar for-avatar--b"></div>
+          <p class="for-card__name">Marcus T.</p>
+          <h3 class="for-card__type">Serious learners</h3>
+          <p class="for-card__body">You want to actually hold a conversation, not just collect streaks. Your tutor pushes you past the plateau.</p>
+        </div>
+        <div class="for-card">
+          <div class="for-avatar for-avatar--c"></div>
+          <p class="for-card__name">Priya M.</p>
+          <h3 class="for-card__type">Comeback learners</h3>
+          <p class="for-card__body">Studied French in college. Lost it. Know the grammar's still in there somewhere — the tutor finds it fast.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TESTIMONIALS ─── -->
+  <section class="testimonials">
+    <div class="container">
+      <h2 class="section-headline section-headline--center">Real results.</h2>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p class="testi-quote">"After 3 months I ordered dinner in French and understood the waiter's follow-up question. The weekly lessons are what got me there — I actually showed up every day."</p>
+          <p class="testi-name">— Sarah K., <em>Paris trip in October</em></p>
+        </div>
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p class="testi-quote">"I quit Duolingo twice and Babbel once. The difference here is my tutor messaged me when I skipped Tuesday and gave me a shorter session to get back on track. Haven't skipped a week since."</p>
+          <p class="testi-name">— Anders L., <em>Swedish → English</em></p>
+        </div>
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p class="testi-quote">"The AI practice alone is worth it, but my tutor noticed I kept avoiding past tense and made that my focus for two weeks. That one adjustment unlocked a ton of new conversations."</p>
+          <p class="testi-name">— Marcus T., <em>English → German</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA STRIP ─── -->
+  <section class="cta-strip">
+    <div class="container cta-strip__inner">
+      <h2 class="cta-strip__headline">Ready to stop downloading apps and start actually speaking?</h2>
+      <div class="cta-group cta-group--centered">
+        <a href="https://getvolley.ai/lp3" class="btn btn--primary btn--large" target="_blank" rel="noopener">
+          Get my plan <span class="btn__arrow">→</span>
+        </a>
+        <p class="cta-micro">2-minute placement test · $99/mo · cancel anytime</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FAQ ─── -->
+  <section class="faq">
+    <div class="container">
+      <h2 class="section-headline section-headline--center">Questions</h2>
+      <div class="faq-list">
+
+        <details class="faq-item" open>
+          <summary class="faq-q">What is Volley and how is it different?</summary>
+          <p class="faq-a">Volley is a language learning app paired with a real human tutor. Between lessons, you practice daily with an AI conversation partner, personalized audio lessons, and smart flashcards. What makes it different is the loop: your tutor reviews your actual practice data each week and adjusts your plan — so you're always working on the right thing, not just following a generic course.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">How much does Volley cost?</summary>
+          <p class="faq-a">Volley is $99/month. That includes 4 × 30-minute live lessons with a real tutor each month, plus unlimited AI practice in the app every day. Private tutors alone run $200+/month for fewer sessions with no integrated practice between them. You can cancel anytime — no contracts.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Why is this better than Duolingo or Babbel?</summary>
+          <p class="faq-a">Apps are great for building habits. They're not great at noticing when you're plateauing, avoiding certain grammar, or skipping days without consequence. A real tutor does all three. Volley pairs both: the AI keeps you consistent daily; the tutor keeps you honest and progressing weekly.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Is the tutor a real person?</summary>
+          <p class="faq-a">Yes. A real, qualified language tutor — not an AI acting as one. They review your app practice data every week and run your 30-minute live sessions with you.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">What languages do you offer?</summary>
+          <p class="faq-a">Take the 2-minute placement test to see the languages currently available for your level. Volley is expanding its tutor network regularly.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">How much time does it take each day?</summary>
+          <p class="faq-a">15 minutes is enough to make real progress. The app is designed for commutes, lunch breaks, and dead time — not 2-hour study blocks. Your tutor sets the weekly plan so you're never guessing how to fill the time.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Can I cancel anytime?</summary>
+          <p class="faq-a">Yes, anytime — no contracts, no cancellation fees. Most people don't because the weekly tutor check-in is what actually keeps them coming back.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a href="#" class="logo" aria-label="Volley home">
+        <svg width="90" height="28" viewBox="0 0 90 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="14" r="13" fill="#E8623D" />
+          <text x="14" y="19" text-anchor="middle" fill="#fff" font-family="Inter,sans-serif" font-size="11" font-weight="700">V</text>
+          <text x="32" y="19" fill="#fff" font-family="Fraunces,serif" font-size="18" font-weight="700" letter-spacing="-0.5">olley</text>
+        </svg>
+      </a>
+      <p class="footer__copy">© 2026 Volley. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ─── JS: message-match + checklist ─── -->
+  <script>
+    // ── Message-match: swap hero copy based on ?ang= URL param ──
+    const angleContent = {
+      dropout: {
+        overline: "The language app problem — solved.",
+        headline: "You've downloaded<br>the apps.<br><em>You still can't order<br>a coffee in French.</em>",
+        subhead: "That's not a you problem — it's an accountability problem. Volley pairs a real language tutor with daily AI practice, so someone who knows your weak spots always has a plan for next week."
+      },
+      pro: {
+        overline: "For people who don't have time to waste.",
+        headline: "15 minutes a day.<br><em>A real tutor making<br>sure they count.</em>",
+        subhead: "Daily AI practice that fits your commute, plus a human tutor who reviews your week and tells you exactly what to focus on next — no guessing, no wasted sessions."
+      },
+      compare: {
+        overline: "Not another chatbot.",
+        headline: "An AI builds the habit.<br><em>A real tutor makes<br>it actually work.</em>",
+        subhead: "AI gets you reps every day. A real language tutor reviews what you practiced, spots your blind spots, and rebuilds your plan — every single week. That's what $13/month apps can't do."
+      }
+    };
+
+    function applyAngle(ang) {
+      const content = angleContent[ang] || angleContent.dropout;
+      const overlineEl = document.getElementById('hero-overline');
+      const headlineEl = document.getElementById('hero-headline');
+      const subheadEl  = document.getElementById('hero-subhead');
+
+      [overlineEl, headlineEl, subheadEl].forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(8px)';
+      });
+
+      setTimeout(() => {
+        overlineEl.textContent = content.overline;
+        headlineEl.innerHTML   = content.headline;
+        subheadEl.textContent  = content.subhead;
+        [overlineEl, headlineEl, subheadEl].forEach(el => {
+          el.style.opacity = '';
+          el.style.transform = '';
+        });
+      }, 220);
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const ang = params.get('ang');
+    if (ang && angleContent[ang]) applyAngle(ang);
+
+    // ── Interactive checklist ──
+    const responses = [
+      "Check one to get started.",
+      "You're not alone. Most people who quit apps don't lack motivation — they lack a plan that adjusts to them.",
+      "That's the Duolingo trap. Consistency without direction. A tutor fixes that.",
+      "Three out of four. The pattern is clear. You need someone in your corner, not another app.",
+      "Four for four. You already know what's missing. Let's fix it."
+    ];
+
+    const checklist = document.getElementById('checklist');
+    const responseText = document.getElementById('response-text');
+
+    checklist.addEventListener('change', () => {
+      const checked = checklist.querySelectorAll('input:checked').length;
+      responseText.style.opacity = '0';
+      setTimeout(() => {
+        responseText.textContent = responses[checked] || responses[responses.length - 1];
+        responseText.style.opacity = '';
+      }, 150);
+    });
+
+    // ── Animated loop diagram: cycle active state ──
+    const steps = document.querySelectorAll('.loop-step');
+    if (steps.length) {
+      let active = 0;
+      steps[0].classList.add('loop-step--active');
+      setInterval(() => {
+        steps[active].classList.remove('loop-step--active');
+        active = (active + 1) % steps.length;
+        steps[active].classList.add('loop-step--active');
+      }, 2200);
+    }
+  </script>
+</body>
+</html>
