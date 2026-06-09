@@ -560,11 +560,6 @@ a { color: inherit; text-decoration: none; }
 }
 .loop-step__body { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.6; }
 
-.loop-connector { display: none; }
-@keyframes pulse-arrow {
-  0%, 100% { opacity: 0.4; transform: translateX(0); }
-  50% { opacity: 1; transform: translateX(4px); }
-}
 
 .loop-callouts {
   display: grid;
