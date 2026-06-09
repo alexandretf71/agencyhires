@@ -122,8 +122,8 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: #1c1f35;
+      border: 1px solid rgba(255,255,255,0.09);
       border-radius: 20px;
       padding: 28px;
       text-decoration: none;
@@ -131,21 +131,25 @@
       transition: all 0.22s ease;
       position: relative;
       overflow: hidden;
+      cursor: pointer;
     }
     .card::before {
       content: '';
       position: absolute;
       inset: 0;
       border-radius: 20px;
-      background: linear-gradient(135deg, rgba(232,98,61,0.08), transparent);
+      background: linear-gradient(135deg, rgba(232,98,61,0.10), transparent);
       opacity: 0;
       transition: opacity 0.22s ease;
     }
-    .card:hover { transform: translateY(-4px); border-color: rgba(232,98,61,0.35); box-shadow: 0 20px 60px rgba(0,0,0,0.35); }
+    .card:hover { transform: translateY(-4px); border-color: rgba(232,98,61,0.4); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
     .card:hover::before { opacity: 1; }
-    .card--deck { background: rgba(45,110,106,0.12); border-color: rgba(45,110,106,0.25); }
-    .card--deck:hover { border-color: rgba(45,110,106,0.55); }
-    .card--deck::before { background: linear-gradient(135deg, rgba(45,110,106,0.12), transparent); }
+    .card--deck { background: #1a3533; border-color: rgba(61,158,153,0.25); }
+    .card--deck:hover { border-color: rgba(61,158,153,0.55); }
+    .card--deck::before { background: linear-gradient(135deg, rgba(45,110,106,0.20), transparent); }
+    .card--static { cursor: default; }
+    .card--static:hover { transform: none; box-shadow: none; border-color: rgba(255,255,255,0.09); }
+    .card--static::before { display: none; }
 
     .card__num {
       font-family: var(--font-mono);
@@ -154,7 +158,7 @@
       text-transform: uppercase;
       color: var(--coral);
     }
-    .card--deck .card__num { color: rgba(45,110,106,0.8); }
+    .card--deck .card__num { color: #3D9E99; }
 
     .card__icon { font-size: 36px; line-height: 1; }
     .card__title {
@@ -246,8 +250,8 @@
 
   <div class="cards">
 
-    <!-- LP variant -->
-    <a class="card" href="landing-page-variant/index.html">
+    <!-- LP variant — div (not <a>) so inner <a> links are valid HTML -->
+    <div class="card" onclick="window.location='landing-page-variant/index.html'">
       <span class="card__num">Deliverable 01</span>
       <div class="card__icon">🖥</div>
       <h2 class="card__title">Landing page variant</h2>
@@ -255,13 +259,13 @@
       <div class="ang-pills">
         <div class="ang-pill">
           msg-match →
-          <a href="landing-page-variant/index.html?ang=dropout">?ang=dropout</a>
-          <a href="landing-page-variant/index.html?ang=pro">?ang=pro</a>
-          <a href="landing-page-variant/index.html?ang=compare">?ang=compare</a>
+          <a href="landing-page-variant/index.html?ang=dropout" onclick="event.stopPropagation()">?ang=dropout</a>
+          <a href="landing-page-variant/index.html?ang=pro" onclick="event.stopPropagation()">?ang=pro</a>
+          <a href="landing-page-variant/index.html?ang=compare" onclick="event.stopPropagation()">?ang=compare</a>
         </div>
       </div>
       <span class="card__link">Open LP variant →</span>
-    </a>
+    </div>
 
     <!-- Deck -->
     <a class="card card--deck" href="deck/index.html">
@@ -272,20 +276,23 @@
       <span class="card__link">Open deck →</span>
     </a>
 
-    <!-- What's the brief -->
-    <div class="card" style="cursor:default;">
+    <!-- The brief — static, no hover effect -->
+    <div class="card card--static">
       <span class="card__num">The brief</span>
       <div class="card__icon">🎯</div>
       <h2 class="card__title">The strategic call</h2>
       <p class="card__desc">The current page hides price entirely and buries its strongest hook (app dropout survivors) two-thirds down. One focused test changes both — without rebuilding the whole page.</p>
-      <p style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.2);margin-top:8px;">$99/mo · AI practice + real tutor · weekly loop</p>
+      <p style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.25);margin-top:8px;">$99/mo · AI practice + real tutor · weekly loop</p>
     </div>
 
   </div>
 
   <footer>
     <p>Built for AgencyHires Challenge 01 · Volley (getvolley.ai)</p>
-    <a href="https://github.com/alexandretf71/agencyhires" target="_blank" rel="noopener">github.com/alexandretf71/agencyhires ↗</a>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;text-align:right;">
+      <a href="https://github.com/alexandretf71/agencyhires" target="_blank" rel="noopener">github.com/alexandretf71/agencyhires ↗</a>
+      <span style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.2);">Built by <a href="https://www.linkedin.com/in/alexandre-toda-faitarone-0992871/" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.4);">Alexandre Toda Faitarone</a></span>
+    </div>
   </footer>
 
 </body>
