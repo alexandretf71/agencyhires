@@ -235,7 +235,8 @@
     .ang-pill {
       display: flex;
       align-items: center;
-      gap: 8px;
+      flex-wrap: wrap;
+      gap: 6px 8px;
       font-family: var(--font-mono);
       font-size: 11px;
       color: rgba(255,255,255,0.35);
@@ -244,6 +245,7 @@
       color: rgba(232,98,61,0.7);
       text-decoration: none;
       transition: color 0.15s;
+      white-space: nowrap;
     }
     .ang-pill a:hover { color: var(--coral); }
 
