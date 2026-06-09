@@ -54,6 +54,45 @@
       color: rgba(255,255,255,0.3);
       letter-spacing: 0.08em;
     }
+    /* ── Author chip ── */
+    .nav-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .nav-author:hover { opacity: 0.75; }
+    .nav-author__photo {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 15%;
+      border: 2px solid var(--coral);
+      flex-shrink: 0;
+    }
+    .nav-author__text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .nav-author__name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .nav-author__label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.07em;
+      white-space: nowrap;
+    }
+    @media (max-width: 720px) {
+      .nav-author__text { display: none; }
+    }
 
     /* ── Hero ── */
     .hero {
@@ -239,7 +278,13 @@
 
   <nav>
     <a href="/" class="logo">Volley <span>/</span> Funnel</a>
-    <span class="nav-tag">AgencyHires · Challenge 01</span>
+    <a href="https://www.linkedin.com/in/alexandre-toda-faitarone-0992871/" target="_blank" rel="noopener" class="nav-author">
+      <img src="assets/alexandre.jpg" alt="Alexandre Toda Faitarone" class="nav-author__photo">
+      <div class="nav-author__text">
+        <span class="nav-author__name">Alexandre Toda Faitarone</span>
+        <span class="nav-author__label">Built for AgencyHires</span>
+      </div>
+    </a>
   </nav>
 
   <div class="hero">
@@ -289,10 +334,7 @@
 
   <footer>
     <p>Built for AgencyHires Challenge 01 · Volley (getvolley.ai)</p>
-    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;text-align:right;">
-      <a href="https://github.com/alexandretf71/agencyhires" target="_blank" rel="noopener">github.com/alexandretf71/agencyhires ↗</a>
-      <span style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.2);">Built by <a href="https://www.linkedin.com/in/alexandre-toda-faitarone-0992871/" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.4);">Alexandre Toda Faitarone</a></span>
-    </div>
+    <a href="https://github.com/alexandretf71/agencyhires" target="_blank" rel="noopener">github.com/alexandretf71/agencyhires ↗</a>
   </footer>
 
 </body>

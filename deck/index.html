@@ -47,9 +47,18 @@
     }
     .deck-nav__logo { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--navy); }
     .deck-nav__logo span { color: var(--coral); }
+    .deck-nav__right { display: flex; align-items: center; gap: 24px; }
     .deck-nav__links { display: flex; gap: 28px; }
     .deck-nav__links a { font-size: 13px; color: var(--muted); text-decoration: none; font-family: var(--font-mono); letter-spacing: 0.04em; transition: color 0.2s; }
     .deck-nav__links a:hover { color: var(--coral); }
+    .deck-nav__divider { width: 1px; height: 24px; background: var(--border); }
+    /* Author chip */
+    .nav-author { display: flex; align-items: center; gap: 10px; text-decoration: none; transition: opacity 0.2s; }
+    .nav-author:hover { opacity: 0.75; }
+    .nav-author__photo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; object-position: center 15%; border: 2px solid var(--coral); flex-shrink: 0; }
+    .nav-author__text { display: flex; flex-direction: column; gap: 1px; }
+    .nav-author__name { font-size: 13px; font-weight: 600; color: var(--navy); white-space: nowrap; font-family: var(--font-sans); }
+    .nav-author__label { font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: 0.07em; white-space: nowrap; }
 
     /* ── Pages / Sections ── */
     .page { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
@@ -412,6 +421,8 @@
 
     /* ─ Responsive ─ */
     @media (max-width: 900px) {
+      .nav-author__text { display: none; }
+      .deck-nav__divider { display: none; }
       .cover { grid-template-columns: 1fr; padding: 60px 32px; }
       .content-section { padding: 60px 32px; }
       .two-col, .three-col, .analysis-grid, .test-grid, .design-features { grid-template-columns: 1fr; }
@@ -428,10 +439,20 @@
   <!-- NAV -->
   <nav class="deck-nav no-print">
     <div class="deck-nav__logo">Volley <span>/ Funnel Strategy</span></div>
-    <div class="deck-nav__links">
-      <a href="#lp">01 Landing Page</a>
-      <a href="#ads">02 Ad Angles</a>
-      <a href="#testing">03 Testing Plan</a>
+    <div class="deck-nav__right">
+      <div class="deck-nav__links">
+        <a href="#lp">01 Landing Page</a>
+        <a href="#ads">02 Ad Angles</a>
+        <a href="#testing">03 Testing Plan</a>
+      </div>
+      <div class="deck-nav__divider"></div>
+      <a href="https://www.linkedin.com/in/alexandre-toda-faitarone-0992871/" target="_blank" rel="noopener" class="nav-author">
+        <img src="../assets/alexandre.jpg" alt="Alexandre Toda Faitarone" class="nav-author__photo">
+        <div class="nav-author__text">
+          <span class="nav-author__name">Alexandre Toda Faitarone</span>
+          <span class="nav-author__label">Built for AgencyHires</span>
+        </div>
+      </a>
     </div>
   </nav>
 
@@ -988,9 +1009,6 @@
       <span class="chip">Advantage+ framing</span>
       <span class="chip">Incrementality testing</span>
     </div>
-    <p style="font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(255,255,255,0.25);margin-top:16px;">
-      Built by <a href="https://www.linkedin.com/in/alexandre-toda-faitarone-0992871/" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.4);text-decoration:none;">Alexandre Toda Faitarone</a>
-    </p>
   </section>
 
 </body>
