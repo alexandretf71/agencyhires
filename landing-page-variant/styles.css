@@ -754,8 +754,10 @@ a { color: inherit; text-decoration: none; }
 .tutor-img-circle {
   width: 280px; height: 280px;
   border-radius: 50%;
-  background: linear-gradient(145deg, #C8A882, #9E7A5E);
+  object-fit: cover;
+  object-position: center top;
   box-shadow: 0 0 0 12px var(--cream-2), 0 0 0 14px rgba(232,98,61,0.2);
+  display: block;
 }
 .tutor-section__copy { display: flex; flex-direction: column; gap: 20px; }
 .tutor-copy { font-size: 17px; color: #444456; line-height: 1.7; }
