@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Challenge 2 — Find Snowball a Head of Sales · AgencyHires</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:  #F4F0E6;
+      --navy:   #151622;
+      --navy2:  #1E2035;
+      --coral:  #E8623D;
+      --teal:   #2D6E6A;
+      --teal-l: #3D8E89;
+      --white:  #FFFFFF;
+      --border: rgba(255,255,255,0.08);
+      --font-serif: 'Fraunces', Georgia, serif;
+      --font-sans:  'Inter', system-ui, sans-serif;
+      --font-mono:  'JetBrains Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--navy);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Nav ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 48px;
+      background: rgba(21,22,34,0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav__left { display: flex; align-items: center; gap: 20px; }
+    .nav__logo { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--white); }
+    .nav__logo span { color: var(--coral); }
+    .nav__back {
+      font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.35);
+      letter-spacing: 0.06em; border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px; padding: 4px 12px;
+      transition: all 0.15s;
+    }
+    .nav__back:hover { color: var(--coral); border-color: rgba(232,98,61,0.4); }
+    .nav-author { display: flex; align-items: center; gap: 10px; text-decoration: none; transition: opacity 0.2s; }
+    .nav-author:hover { opacity: 0.75; }
+    .nav-author__photo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; object-position: center 15%; border: 2px solid var(--coral); flex-shrink: 0; }
+    .nav-author__text { display: flex; flex-direction: column; gap: 1px; }
+    .nav-author__name { font-size: 13px; font-weight: 600; color: #fff; white-space: nowrap; }
+    .nav-author__label { font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 0.07em; white-space: nowrap; }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 80px 48px 56px;
+      max-width: 1160px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero__badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 11px;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--coral); border: 1px solid rgba(232,98,61,0.3);
+      border-radius: 100px; padding: 6px 18px; margin-bottom: 28px;
+    }
+    .hero__badge::before {
+      content: ''; display: inline-block; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--coral);
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .hero__headline {
+      font-family: var(--font-serif);
+      font-size: clamp(38px, 5.5vw, 72px);
+      font-weight: 700; line-height: 1.04;
+      letter-spacing: -0.025em; margin-bottom: 20px;
+    }
+    .hero__headline em { color: var(--coral); font-style: italic; }
+    .hero__sub {
+      font-size: clamp(15px, 1.8vw, 18px);
+      color: rgba(255,255,255,0.5);
+      max-width: 560px; line-height: 1.7;
+    }
+
+    /* ── Hunting Logic ── */
+    .logic {
+      background: var(--navy2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 60px 48px;
+    }
+    .logic__inner {
+      max-width: 1160px; margin: 0 auto;
+      display: grid; grid-template-columns: 240px 1fr;
+      gap: 64px; align-items: start;
+    }
+    .logic__tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-l); margin-bottom: 12px; }
+    .logic__title { font-family: var(--font-serif); font-size: 30px; font-weight: 600; line-height: 1.15; }
+    .logic__body { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.8; }
+    .logic__body + .logic__body { margin-top: 16px; }
+    .logic__body strong { color: rgba(255,255,255,0.88); font-weight: 600; }
+
+    /* ── Candidates ── */
+    .candidates {
+      flex: 1;
+      padding: 72px 48px 80px;
+      max-width: 1160px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .shortlist-header {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 8px;
+    }
+    .shortlist-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral); white-space: nowrap; }
+    .shortlist-rule { flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
+
+    /* Candidate card */
+    .c-card {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: border-color 0.22s;
+    }
+    .c-card:hover { border-color: rgba(232,98,61,0.28); }
+
+    .c-head {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 20px;
+      padding: 28px 32px 22px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+    }
+    .c-num { font-family: var(--font-mono); font-size: 10px; color: var(--coral); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+    .c-name { font-family: var(--font-serif); font-size: 30px; font-weight: 700; line-height: 1.1; }
+    .c-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .c-badge {
+      font-family: var(--font-mono); font-size: 11px;
+      color: rgba(255,255,255,0.55);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px; padding: 3px 10px; white-space: nowrap;
+    }
+    .c-company { font-size: 14px; color: rgba(255,255,255,0.4); }
+
+    .li-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--teal-l);
+      border: 1px solid rgba(61,142,137,0.3);
+      border-radius: 8px; padding: 9px 16px;
+      white-space: nowrap; flex-shrink: 0;
+      transition: all 0.15s;
+    }
+    .li-btn:hover { background: rgba(61,142,137,0.1); border-color: rgba(61,142,137,0.6); color: #5BC4BF; }
+    .li-icon { font-size: 13px; }
+
+    .c-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .c-crush {
+      padding: 28px 32px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .c-dm { padding: 28px 32px; }
+    .section-tag {
+      font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28); margin-bottom: 14px;
+    }
+    .crush-text {
+      font-size: 14px; color: rgba(255,255,255,0.62); line-height: 1.8;
+    }
+    .crush-text strong { color: rgba(255,255,255,0.88); font-weight: 600; }
+
+    /* DM bubble */
+    .dm-shell {
+      background: #0B0C17;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+    .dm-topbar {
+      display: flex; align-items: center; gap: 8px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 14px;
+    }
+    .dm-li-dot { width: 8px; height: 8px; border-radius: 50%; background: #0077B5; flex-shrink: 0; box-shadow: 0 0 6px rgba(0,119,181,0.5); }
+    .dm-label { font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,0.22); letter-spacing: 0.06em; }
+    .dm-bubble {
+      background: rgba(255,255,255,0.07);
+      border-radius: 14px 14px 14px 4px;
+      padding: 13px 16px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.65;
+      font-style: italic;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 48px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    footer p { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 0.04em; }
+    footer a { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.3); transition: color 0.2s; }
+    footer a:hover { color: var(--coral); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .nav { padding: 14px 24px; }
+      .nav-author__text { display: none; }
+      .hero { padding: 56px 24px 40px; }
+      .logic { padding: 48px 24px; }
+      .logic__inner { grid-template-columns: 1fr; gap: 24px; }
+      .candidates { padding: 48px 24px 64px; }
+      .c-head { flex-direction: column; }
+      .c-body { grid-template-columns: 1fr; }
+      .c-crush { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      footer { padding: 20px 24px; }
+    }
+    @media (max-width: 600px) {
+      .c-head, .c-crush, .c-dm { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav__left">
+      <span class="nav__logo">AgencyHires <span>/</span> Challenge 2</span>
+      <a href="../index.html" class="nav__back">← Back</a>
+    </div>
+    <a href="https://www.linkedin.com/in/alexandre-toda-faitarone-0992871/" target="_blank" rel="noopener" class="nav-author">
+      <img src="../assets/alexandre.jpg" alt="Alexandre Toda Faitarone" class="nav-author__photo">
+      <div class="nav-author__text">
+        <span class="nav-author__name">Alexandre Toda Faitarone</span>
+        <span class="nav-author__label">Built for AgencyHires</span>
+      </div>
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hero__badge">Challenge 2 · snowball.agency</span>
+    <h1 class="hero__headline">Find Snowball<br>a <em>Head of Sales.</em></h1>
+    <p class="hero__sub">Three non-obvious candidates. Real hunting logic. The DM you'd actually send to get them on a call.</p>
+  </div>
+
+  <!-- HUNTING LOGIC -->
+  <section class="logic">
+    <div class="logic__inner">
+      <div>
+        <p class="logic__tag">The Hunt</p>
+        <h2 class="logic__title">How I<br>searched.</h2>
+      </div>
+      <div>
+        <p class="logic__body">I avoided generic <strong>VP Sales / CRO profiles</strong> and looked for people already operating near Snowball's real commercial edge: <strong>YouTube-native content</strong>, creator partnerships, brand integrations, video IP monetization and creator-led communities.</p>
+        <p class="logic__body">The bet is that Snowball's Head of Sales should be able to <strong>sell YouTube as a strategic growth channel</strong> — not just sell agency services. That's why I prioritized people from Good Story Studios, Moonbug and Tribe Gaming rather than obvious agency sales executives. Each one is already doing the kind of commercial work Snowball needs, and <strong>none of them are sitting on a recruiter's list.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CANDIDATES -->
+  <div class="candidates">
+
+    <div class="shortlist-header">
+      <span class="shortlist-tag">Shortlist</span>
+      <div class="shortlist-rule"></div>
+      <span class="shortlist-tag">3 candidates</span>
+    </div>
+
+    <!-- ── Candidate 01: Barbara Abraul ── -->
+    <div class="c-card">
+      <div class="c-head">
+        <div>
+          <p class="c-num">Candidate 01</p>
+          <h2 class="c-name">Barbara Abraul</h2>
+          <div class="c-meta">
+            <span class="c-badge">Brand Partnerships</span>
+            <span class="c-company">Good Story Studios</span>
+          </div>
+        </div>
+        <a href="https://www.linkedin.com/in/abraul" target="_blank" rel="noopener" class="li-btn">
+          <span class="li-icon">in</span> LinkedIn ↗
+        </a>
+      </div>
+      <div class="c-body">
+        <div class="c-crush">
+          <p class="section-tag">Why she'd crush it</p>
+          <p class="crush-text">Barbara is a <strong>very strong non-obvious pick</strong> because she is already doing the kind of commercial work Snowball needs: helping brands partner with serious YouTube-native creators. Good Story Studios describes itself as a Venice-based company helping brands do YouTube the right way — turning brand campaigns into cultural moments through trusted internet storytellers.<br><br>
+          She is not a generic sales executive. She is already operating inside <strong>the exact market Snowball is trying to win.</strong></p>
+        </div>
+        <div class="c-dm">
+          <p class="section-tag">The outreach DM</p>
+          <div class="dm-shell">
+            <div class="dm-topbar">
+              <div class="dm-li-dot"></div>
+              <span class="dm-label">LinkedIn · New Message</span>
+            </div>
+            <div class="dm-bubble">
+              Barbara — I came across your work with Good Story Studios and Theorist Media, and it immediately felt relevant to Snowball. They're building a YouTube-first agency for brands, and the role is less about traditional sales and more about helping brands understand how to win on YouTube with the right creative and creator strategy. Your work around brand partnerships for top YouTube creators feels very close to that problem. Would you be open to a quick conversation?
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Candidate 02: Jeff Skaggs ── -->
+    <div class="c-card">
+      <div class="c-head">
+        <div>
+          <p class="c-num">Candidate 02</p>
+          <h2 class="c-name">Jeff Skaggs</h2>
+          <div class="c-meta">
+            <span class="c-badge">Strategic Revenue &amp; Brand Partnerships</span>
+            <span class="c-company">Moonbug Entertainment</span>
+          </div>
+        </div>
+        <a href="https://www.linkedin.com/in/jeffskaggs" target="_blank" rel="noopener" class="li-btn">
+          <span class="li-icon">in</span> LinkedIn ↗
+        </a>
+      </div>
+      <div class="c-body">
+        <div class="c-crush">
+          <p class="section-tag">Why he'd crush it</p>
+          <p class="crush-text">Jeff is a strong fit because he connects <strong>revenue leadership with YouTube, CTV, kids media and global IP monetization</strong> — not just generic ad sales. Moonbug owns major YouTube-native properties (CoComelon, Blippi, Little Baby Bum), so he understands how digital video properties become brand, licensing and revenue platforms.<br><br>
+          Snowball needs someone who can sell the business value of YouTube to brands. <strong>Jeff already lives at the intersection of content IP, brand partnerships and video distribution.</strong></p>
+        </div>
+        <div class="c-dm">
+          <p class="section-tag">The outreach DM</p>
+          <div class="dm-shell">
+            <div class="dm-topbar">
+              <div class="dm-li-dot"></div>
+              <span class="dm-label">LinkedIn · New Message</span>
+            </div>
+            <div class="dm-bubble">
+              Jeff — I noticed your work at Moonbug around YouTube, CTV, brand partnerships and global IP monetization. Snowball is building a YouTube-first agency for brands, and they need a sales leader who can speak credibly about why YouTube is not just a media channel, but a long-term brand asset. Your experience monetizing video-native properties feels unusually relevant. Would you be open to a quick exploratory call?
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Candidate 03: Alex Rubens ── -->
+    <div class="c-card">
+      <div class="c-head">
+        <div>
+          <p class="c-num">Candidate 03</p>
+          <h2 class="c-name">Alex Rubens</h2>
+          <div class="c-meta">
+            <span class="c-badge">VP · Head of Partnerships / Head of Sales</span>
+            <span class="c-company">Tribe Gaming · ex-YouTube · Riot Games</span>
+          </div>
+        </div>
+        <a href="https://www.linkedin.com/in/alexrubens" target="_blank" rel="noopener" class="li-btn">
+          <span class="li-icon">in</span> LinkedIn ↗
+        </a>
+      </div>
+      <div class="c-body">
+        <div class="c-crush">
+          <p class="section-tag">Why he'd crush it</p>
+          <p class="crush-text">Alex is a good non-obvious pick because his background crosses <strong>YouTube, gaming, partnerships, esports and sales</strong> — all areas where audience, creators, brands and content strategy overlap. Tribe Gaming sits in creator-led gaming media, which requires selling brand value around communities and content rather than just pushing ad inventory.<br><br>
+          For Snowball, he could bring both <strong>platform fluency from YouTube</strong> and practical sales leadership from a video/community-driven business.</p>
+        </div>
+        <div class="c-dm">
+          <p class="section-tag">The outreach DM</p>
+          <div class="dm-shell">
+            <div class="dm-topbar">
+              <div class="dm-li-dot"></div>
+              <span class="dm-label">LinkedIn · New Message</span>
+            </div>
+            <div class="dm-bubble">
+              Alex — your mix of YouTube, Riot, Kroenke Sports and Tribe Gaming stood out because Snowball's Head of Sales role feels like it needs someone who understands content, audience and brand partnerships — not just a conventional sales leader. Snowball is helping brands win on YouTube, and your experience across platform, gaming and creator-led communities seems highly relevant. Would you be open to a quick call to explore whether this could be interesting?
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Built for AgencyHires Challenge 02 · Snowball (snowball.agency)</p>
+    <a href="https://github.com/alexandretf71/agencyhires" target="_blank" rel="noopener">github.com/alexandretf71/agencyhires ↗</a>
+  </footer>
+
+</body>
+</html>

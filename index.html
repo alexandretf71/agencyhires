@@ -259,6 +259,63 @@
     }
     .ang-chip:hover { background: rgba(232,98,61,0.2); border-color: rgba(232,98,61,0.5); }
 
+    /* ── Challenge divider ── */
+    .challenge-divider {
+      display: flex; align-items: center; gap: 16px;
+      max-width: 960px; margin: 36px auto 0;
+      padding: 0 32px;
+    }
+    .challenge-divider__line { flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
+    .challenge-divider__label {
+      font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.22); white-space: nowrap;
+    }
+    /* Challenge 2 full-width card */
+    .cards--c2 {
+      grid-template-columns: 1fr;
+      max-width: 960px;
+      margin-top: 16px;
+      margin-bottom: 0;
+    }
+    .card--c2 {
+      background: #1a1e38;
+      border-color: rgba(61,142,137,0.2);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 32px;
+    }
+    .card--c2::before { background: linear-gradient(135deg, rgba(45,110,106,0.18), transparent); }
+    .card--c2:hover { border-color: rgba(61,142,137,0.5); }
+    .card--c2 .card__num { color: var(--teal); }
+    .card--c2 .card__title { font-size: 26px; }
+    .card--c2 .card__link { color: var(--teal); }
+    .card--c2-meta {
+      display: flex; flex-direction: column; gap: 8px;
+      border-left: 1px solid rgba(255,255,255,0.07);
+      padding-left: 32px;
+    }
+    .card--c2-meta-label {
+      font-family: var(--font-mono); font-size: 10px;
+      color: rgba(255,255,255,0.25); letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .candidate-chips { display: flex; flex-direction: column; gap: 6px; }
+    .candidate-chip {
+      font-family: var(--font-mono); font-size: 11px;
+      color: rgba(61,142,137,0.8);
+      background: rgba(45,110,106,0.12);
+      border: 1px solid rgba(45,110,106,0.2);
+      border-radius: 6px; padding: 3px 10px;
+      white-space: nowrap;
+    }
+    @media (max-width: 720px) {
+      .card--c2 { grid-template-columns: 1fr; }
+      .card--c2-meta { border-left: none; border-top: 1px solid rgba(255,255,255,0.07); padding-left: 0; padding-top: 16px; }
+      .candidate-chips { flex-direction: row; flex-wrap: wrap; }
+    }
+
     /* ── Footer ── */
     footer {
       padding: 24px 48px;
@@ -342,6 +399,33 @@
       <p style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.25);margin-top:8px;">$99/mo · AI practice + real tutor · weekly loop</p>
     </div>
 
+  </div>
+
+  <!-- Challenge 2 -->
+  <div class="challenge-divider">
+    <div class="challenge-divider__line"></div>
+    <span class="challenge-divider__label">Challenge 02 · Snowball Agency</span>
+    <div class="challenge-divider__line"></div>
+  </div>
+
+  <div class="cards cards--c2">
+    <a class="card card--c2" href="challenge-2/index.html">
+      <div>
+        <span class="card__num">Challenge 02 · snowball.agency</span>
+        <div class="card__icon" style="margin-top:12px;">🎯</div>
+        <h2 class="card__title" style="margin-top:12px;">Find Snowball a Head of Sales</h2>
+        <p class="card__desc" style="margin-top:8px;">Three non-obvious LinkedIn candidates — hunting rationale, why each would crush it, and the outreach DM you'd actually send.</p>
+        <span class="card__link" style="margin-top:12px;">View shortlist →</span>
+      </div>
+      <div class="card--c2-meta">
+        <span class="card--c2-meta-label">Candidates</span>
+        <div class="candidate-chips">
+          <span class="candidate-chip">Barbara Abraul</span>
+          <span class="candidate-chip">Jeff Skaggs</span>
+          <span class="candidate-chip">Alex Rubens</span>
+        </div>
+      </div>
+    </a>
   </div>
 
   <footer>
