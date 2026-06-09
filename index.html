@@ -232,22 +232,32 @@
       gap: 6px;
       margin-top: 6px;
     }
-    .ang-pill {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 6px 8px;
+    .ang-pill__label {
       font-family: var(--font-mono);
-      font-size: 11px;
-      color: rgba(255,255,255,0.35);
+      font-size: 10px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.06em;
     }
-    .ang-pill a {
-      color: rgba(232,98,61,0.7);
+    .ang-pill__row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .ang-chip {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--coral);
+      background: rgba(232,98,61,0.10);
+      border: 1px solid rgba(232,98,61,0.25);
+      border-radius: 4px;
+      padding: 2px 8px;
       text-decoration: none;
-      transition: color 0.15s;
       white-space: nowrap;
+      transition: background 0.15s, border-color 0.15s;
     }
-    .ang-pill a:hover { color: var(--coral); }
+    .ang-chip:hover { background: rgba(232,98,61,0.2); border-color: rgba(232,98,61,0.5); }
 
     /* ── Footer ── */
     footer {
@@ -304,11 +314,11 @@
       <h2 class="card__title">Landing page variant</h2>
       <p class="card__desc">Actual coded build — pain-first hero, interactive checklist, price-anchor copy, animated weekly-loop diagram, and message-match tech.</p>
       <div class="ang-pills">
-        <div class="ang-pill">
-          msg-match →
-          <a href="landing-page-variant/index.html?ang=dropout" onclick="event.stopPropagation()">?ang=dropout</a>
-          <a href="landing-page-variant/index.html?ang=pro" onclick="event.stopPropagation()">?ang=pro</a>
-          <a href="landing-page-variant/index.html?ang=compare" onclick="event.stopPropagation()">?ang=compare</a>
+        <span class="ang-pill__label">msg-match →</span>
+        <div class="ang-pill__row">
+          <a href="landing-page-variant/index.html?ang=dropout" onclick="event.stopPropagation()" class="ang-chip">dropout</a>
+          <a href="landing-page-variant/index.html?ang=pro" onclick="event.stopPropagation()" class="ang-chip">pro</a>
+          <a href="landing-page-variant/index.html?ang=compare" onclick="event.stopPropagation()" class="ang-chip">compare</a>
         </div>
       </div>
       <span class="card__link">Open LP variant →</span>
